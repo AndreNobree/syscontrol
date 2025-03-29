@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Produto</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Lateral -->
+    <div class="menu-lateral" id="menu-lateral">
+        <div class="menu-lateral-header">
+            <h4>Syscontrol</h4>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">PDV</a></li>
+            <li><a href="#">Estoque</a></li>
+            <li><a href="#">Compras & Fornecedores</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a href="#">Usuários</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+
+    <!-- Menu Superior -->
+    <div class="menu-superior">
+        <div class="nome-sistema">
+            <img src="../../media/pngwing.com (2).png" id="menu-png" onclick="toggleMenu()">
+            <h4>Syscontrol</h4>
+        </div>
+        <div></div>
+        <div class="btn-info">
+            <img src="../../media/pngwing.com.png" id="user-png">
+            <img src="../../media/pngwing.com (1).png" id="logout-png">
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+    <script>
+        // Função que alterna a visibilidade do menu lateral
+        function toggleMenu() {
+            const menuLateral = document.getElementById('menu-lateral');
+            const menuIcon = document.getElementById('menu-png');
+
+            // Alterna a classe para esconder ou mostrar o menu
+            menuLateral.classList.toggle('menu-lateral-exibido');
+
+            // Mudança no ícone (se necessário)
+            if (menuLateral.classList.contains('menu-lateral-exibido')) {
+                menuIcon.src = "../../media/pngwing.com (3).png"; // ícone para fechar (exemplo)
+            } else {
+                menuIcon.src = "../../media/pngwing.com (2).png"; // ícone para abrir
+            }
+        }
+    </script>
+</body>
+</html>

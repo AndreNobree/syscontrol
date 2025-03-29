@@ -1,0 +1,21 @@
+{
+  "name": "siscontrol",
+  "version": "1.0.0",
+  "main": "./src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^34.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "pg": "^8.13.1",
+    "pg-promise": "^11.10.2"
+  }
+}

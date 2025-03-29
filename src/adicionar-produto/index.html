@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Produto</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="menu-lateral">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="../pdv/index.html">PDV</a></li>
+            <li><a href="../estoque/index.html">Estoque</a></li>
+            <li><a href="#">Compras & Fornecedores</a></li>
+            <li><a href="#">Relatórios</a></li>
+            <li><a href="#">Usuários</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+    <div class="home">
+        <div class="menu-superior">
+          <div class="nome-sistema">
+            <img src="../../media/pngwing.com (2).png" id="menu-png">
+            <h4>Syscontrol</h4>
+          </div>
+          <div></div>
+          <div class="btn-info">
+            <img src="../../media/pngwing.com.png" id="user-png">
+            <img src="../../media/pngwing.com (1).png" id="logout-png">
+          </div>
+        </div>
+
+        <div class="menu-intermediario">
+            <input type="button" value="< VOLTAR" id="btn-voltar">
+        </div>
+
+        <div class="formulario">
+            <form id="addprod">
+                <div class="form-superior">
+                    <div class="">
+                        <label>Código do produto:</label><br>
+                        <input type="text" id="codigo"><br>
+                    </div>
+                    
+                    <div class="lateral">
+                        <label>Categoria:</label><br>
+                        <select name="filtro" id="filtro">
+                            <option value="">- Selecionar Categoria -</option>
+                        </select>
+                    </div>
+
+                    <div class="lateral">
+                        <label>Fornecedor:</label><br>
+                        <select name="filtro" id="fornecedor">
+                            <option value="">- Selecionar Categoria -</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                
+                <div class="form-intermediario">
+                    <div>
+                        <label>Produto:</label><br>
+                        <select id="search" style="padding: 10px;width: 380px;">
+                            <option value="apple"></option>
+                        </select>
+                    </div>
+
+                    <div class="lateral">
+                        <label>Quantidade: </label><br>
+                        <input type="number" id="quantidade"><br>
+                    </div>
+                    <div class="lateral">
+                        <label>Desconto:</label><br>
+                        <input type="text" id="desconto" >
+                    </div>
+                    <div class="lateral">
+                        <label>Comissao:</label><br>
+                        <input type="text" id="comissao" >
+                    </div>
+                </div>
+
+                <div class="form-inferior">
+                    <div class="">
+                        <label>Preço de Venda:</label><br>
+                        <input type="text" id="preco-venda"><br>
+                    </div>
+                    <div class="lateral">
+                        <label>Preço de Compra:</label><br>
+                        <input type="text" id="preco-compra"><br>
+                    </div>
+
+                    <div class="lateral">
+                        <label>Preço a prazo:</label><br>
+                        <input type="text" id="preco-prazo"><br>
+                    </div>
+
+                    <div class="lateral">
+                        <label>Garantia:</label><br>
+                        <input type="text" id="garantia" placeholder="Dias de garantia">
+                    </div>
+                    
+                </div>
+
+                <div id="error-message" style="color: red; display: none;"></div>
+                <div id="sucess-message" style="color: green; display: none;"></div>
+                
+                <div class="botoes-acao">
+                    <input type="button" value="Adicionar Produto" id="botao-adicionar">
+                </div>
+
+            </form>
+        </div>
+        
+    <script src="renderer.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+                  
+    <script>
+        $(document).ready(function() {
+        $('#search').select2();  // Torna o select pesquisável
+        });
+    </script>
+</body>
+</html>
