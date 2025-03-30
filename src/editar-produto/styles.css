@@ -167,3 +167,6 @@ input, select{
     border: 1px solid #e6823b;
     background-color: #e6823b;
 }
+#id-registro{
+    color: red;
+}

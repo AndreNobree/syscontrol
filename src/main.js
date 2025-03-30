@@ -143,7 +143,12 @@ ipcMain.handle('getProductById', async (event, productId) => {
     // Substitua esta consulta com a consulta real ao seu banco de dados
     const result = await dbClient.query('SELECT * FROM produtos WHERE id = $1', [productId]);
 
-    // Retorna o produto encontrado, ou null se não encontrar
+    if (result.rows.length === 0) {
+      // Se o produto não for encontrado, retornará null
+      return null;
+    }
+
+    // Retorna o produto encontrado
     return result.rows[0];
   } catch (err) {
     console.error('Erro ao buscar produto:', err);
@@ -151,10 +156,11 @@ ipcMain.handle('getProductById', async (event, productId) => {
   }
 });
 
-ipcMain.handle('update-produtos', async (event, { codigo, produto, preco, quantidade, desconto, categoriaSelecionada, idRegistro }) => {
+ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }) => {
   try {
     
-    const res = await dbClient.query('UPDATE produtos SET codigo = $1, idcat = $2, preco = $3, quantidade = $4, desconto = $5, produto = $6 WHERE id = $7', [codigo, categoriaSelecionada, preco, quantidade, desconto, produto, idRegistro]);
+    console.log(codigo)
+    const res = await dbClient.query('UPDATE produtos SET codigo = $1, idcat = $2, preco = $3, quantidade = $4, desconto = $5, produto = $6 WHERE id = $7', [codigo, idcat, preco, quantidade, desconto, produto, idRegistro]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -162,8 +168,8 @@ ipcMain.handle('update-produtos', async (event, { codigo, produto, preco, quanti
       return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
     }
   } catch (err) {
-    console.error('Erro ao fazer insert no banco:', err);
-    return { success: false, message: 'Erro ao fazer insert no banco' };
+    console.error('Erro ao fazer update no banco:', err);
+    return { success: false, message: 'Erro ao fazer update no banco' };
   }
 });
 

@@ -49,7 +49,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+//adiciona item
+document.getElementById('add-item').addEventListener('click', async () => {
 
+})
 //finaliza compra
 document.getElementById('finalizar-compra').addEventListener('click', async () => {
     console.log("apertou aqui babaca")

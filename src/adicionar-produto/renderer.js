@@ -30,22 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error('Erro ao carregar os produtos:', err);
     }
-    try {
-      const prod = await window.electron.getProdutosSelect();
-  
-      const select = document.getElementById('search');
-      
-  
-      prod.forEach(produto => {
-        const option = document.createElement('option');
-        option.value = produto.id;
-        option.textContent = produto.produto;
-        select.appendChild(option);
-    });
-  
-    } catch (err) {
-        console.error('Erro ao carregar os produtos:', err);
-    }
 });
 
 document.getElementById('botao-adicionar').addEventListener('click', async () => {
@@ -93,6 +77,15 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
     errorMessageDiv.textContent = 'Por favor, preencha a quantidade do produto.';
     return;
   }
+  if (precocompra === ""){
+    precocompra = 0
+  }
+  if (precoprazo === ""){
+    precoprazo = 0
+  }
+  if (preco.includes(",")){
+    preco = preco.replace(',', '.')
+  }
 
   try {
 
@@ -120,17 +113,9 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
     
     const response = await window.electron.addProduto(codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao);
 
-    document.getElementById('codigo').value = '';
-    document.getElementById('produto').value = '';
-    document.getElementById('preco').value = '';
-    document.getElementById('quantidade').value = '';
-    document.getElementById('desconto').value = '';
-    document.getElementById('filtro').value = '';
-    document.getElementById('fornecedor').value = '';
-    document.getElementById('preco-compra').value = '';
-    document.getElementById('preco-prazo').value = '';
-    document.getElementById('garantia').value = '';
-    document.getElementById('comissao').value = '';
+    
+    window.location.reload();
+
 
     if (response.success) {
       console.log('sucesso')

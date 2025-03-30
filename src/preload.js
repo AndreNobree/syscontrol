@@ -7,7 +7,7 @@ contextBridge.exposeInMainWorld('electron', {
   deleteProducts: (productIds) => ipcRenderer.invoke('delete-products', productIds),
   addProduto: (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao) => ipcRenderer.invoke('insert-produtos', { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao }),
   getProductById: (productId) => ipcRenderer.invoke('getProductById', productId),
-  editProduto: (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao, idRegistro) => ipcRenderer.invoke('update-produtos', { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao, idRegistro }),
+  updateEditProduto: (codigo, produto, idcat, preco, quantidade, desconto, idRegistro) => ipcRenderer.invoke('update-produtos', { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }),
   getProdutosSelect: () => ipcRenderer.invoke('get-produtos-select'),
 });
 
