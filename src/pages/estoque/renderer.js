@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const row = document.createElement('tr');
         row.innerHTML = `
           <td><input type="checkbox" class="product-checkbox" data-id="${product.id}"></td>  
-          <td><img src="../../media/edit.png" class="edit" data-id="${product.id}" ></td>
+          <td><img src="../../../media/edit.png" class="edit" data-id="${product.id}" ></td>
           <td>${product.codigo}</td>
           <td>${product.produto}</td>
           <td>${product.categoria}</td>

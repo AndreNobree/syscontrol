@@ -70,7 +70,7 @@
 }
 
 .menu-lateral ul li a:hover {
-    background-color: #999;
+    background-color: #b96225;
 }
 
 /* Estilização do conteúdo principal */
@@ -84,34 +84,26 @@
 .menu-superior {
     width: 100%;
     height: 55px;
-    background-color: #fff;
+    background-color: #CA6924;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1;
+    border-radius: 0 0 6px 6px;
 }
 
-.menu-superior{
-    width: 100%;
-    height: 55px;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
+
+
 .nome-sistema{
-    color: #999;
-    background-color: #fff;
+    color: #fff;
+    background-color: #CA6924;
     display: flex;
 }
 .nome-sistema h4{
     margin-left: 10px;
-    background-color: #fff;
+    background-color: #CA6924;
     font-family: 'Poppins', sans-serif;
 }
 .nome-sistema img{
@@ -121,12 +113,12 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background-color: #fff;
+    background-color: #CA6924;
     margin-right: 15px;
 }
 .btn-info{
     margin-right: 20px;
-    background-color: #fff;
+    background-color: #CA6924;
     display: flex;
 }
 .formulario, .menu-intermediario, .botoes-acao{

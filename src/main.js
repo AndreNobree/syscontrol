@@ -4,6 +4,8 @@ const dbClient = require('./db');
 
 let mainWindow;
 
+let usuarioLogado = null;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1050,
@@ -17,7 +19,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadFile(path.join(__dirname, './login/index.html'));
+  mainWindow.loadFile(path.join(__dirname, './pages/login/index.html'));
 }
 
 ipcMain.handle('verify-login', async (event, { username, password }) => {
@@ -26,6 +28,7 @@ ipcMain.handle('verify-login', async (event, { username, password }) => {
     const res = await dbClient.query('SELECT * FROM users WHERE usuario = $1 AND senha = $2', [username, password]);
 
     if (res.rows.length > 0) {
+      usuarioLogado = res.rows[0].id;
       return { success: true };  
     } else {
       return { success: false, message: 'Usuário ou senha incorretos' };  
@@ -112,7 +115,7 @@ ipcMain.handle('get-categorias', async () => {
 
 ipcMain.handle('get-produtos-select', async () => {
   try {
-    const res = await dbClient.query('SELECT produto, codigo, preco FROM produtos LIMIT 50');  
+    const res = await dbClient.query('SELECT id, produto, codigo, preco, desconto, quantidade FROM produtos LIMIT 50');  
     if (res.rows.length === 0) {
       console.log("Nenhuma categoria encontrada na tabela.");
     }
@@ -174,6 +177,86 @@ ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco,
 });
 
 
+ipcMain.handle('get-products-for-caixa', async (event, {codigo, quantidade}) => {
+  try {
+    // Substitua esta consulta com a consulta real ao seu banco de dados
+    const result = await dbClient.query('SELECT * FROM produtos WHERE codigo = $1 AND quantidade >= $2', [codigo, quantidade]);
+
+    if (result.rows.length === 0) {
+      // Se o produto não for encontrado, retornará null
+      return null;
+    }
+
+    else{
+      let idUser = usuarioLogado
+      let idproduto = result.rows[0].id
+      let produto = result.rows[0].produto
+      let preco = result.rows[0].preco
+      let desconto = result.rows[0].desconto
+      let total = 0
+      let precodesc = 0
+
+      if (desconto != "") {
+        let descontoItem = parseFloat(desconto); // Converte o desconto para número
+        descontoItem = descontoItem / 100
+        descontoItem = descontoItem * preco; // Aplica o desconto no preço
+        total = preco - descontoItem
+        precodesc = total
+        precodesc = precodesc.toFixed(2)
+        total *= quantidade
+        total = total.toFixed(2)
+      }
+      else{
+       total = preco * quantidade 
+      }
+      
+      const insetCaixa = await dbClient.query('INSERT INTO caixa (iduser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [idUser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total]);
+      if (insetCaixa.rows.length > 0) {
+        return { success: true };  
+      } else {
+        return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+      }
+    }
+
+    // Retorna o produto encontrado
+    return result.rows[0];
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
+
+ipcMain.handle('get-caixa', async () => {
+  try {
+    const result = await dbClient.query('SELECT * FROM caixa WHERE iduser = $1', [usuarioLogado]);
+
+    if (result.rows.length === 0) {
+      // Se não houver nenhum item, retornará um array vazio
+      return [];
+    }
+
+    // Retorna todas as linhas da tabela 'caixa'
+    return result.rows;
+  } catch (err) {
+    console.error('Erro ao buscar dados da tabela caixa:', err);
+    throw new Error('Erro ao buscar dados da tabela caixa');
+  }
+});
+
+ipcMain.handle('delete-caixa', async (event, caixaId) => {
+  try {
+    const query = await dbClient.query('DELETE FROM caixa WHERE id = $1', [caixaId]);
+    if (res.rowCount > 0) {
+      return { success: true };  // Retorna sucesso
+    } else {
+      console.log('Nenhum produto encontrado para remover.');
+      return { success: false };  // Retorna falha caso não tenha sido encontrado nenhum produto
+    }
+  } catch (err) {
+    console.error('Erro ao remover produtos:', err);
+    return { success: false, message: 'Erro ao remover produtos' };  // Retorna erro em caso de falha
+  }
+});
 
 app.whenReady().then(createWindow);
 

@@ -62,7 +62,7 @@ INSERT INTO categorias (id, categoria) VALUES
 -- Criando a tabela caixa
 CREATE TABLE caixa (
     id BIGSERIAL PRIMARY KEY,
-    idUser INTEGER NOT NULL,
+    iduser INTEGER NOT NULL,
     idProduto INTEGER NOT NULL,
     quantidade INTEGER NOT NULL,
     codigo VARCHAR(255),
@@ -70,7 +70,8 @@ CREATE TABLE caixa (
     preco NUMERIC NOT NULL,
     desconto VARCHAR(10),
     precodesc NUMERIC,
-    total NUMERIC
+    total NUMERIC,
+    datacompra DATE
 );
 
 
