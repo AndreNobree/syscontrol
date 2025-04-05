@@ -177,7 +177,7 @@ ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco,
 });
 
 
-ipcMain.handle('get-products-for-caixa', async (event, {codigo, quantidade}) => {
+ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidade}) => {
   try {
     // Substitua esta consulta com a consulta real ao seu banco de dados
     const result = await dbClient.query('SELECT * FROM produtos WHERE codigo = $1 AND quantidade >= $2', [codigo, quantidade]);
@@ -193,8 +193,10 @@ ipcMain.handle('get-products-for-caixa', async (event, {codigo, quantidade}) => 
       let produto = result.rows[0].produto
       let preco = result.rows[0].preco
       let desconto = result.rows[0].desconto
+      let quantidadeProd = result.rows[0].quantidade
       let total = 0
       let precodesc = 0
+      quantidadeProd = quantidadeProd - quantidade
 
       if (desconto != "") {
         let descontoItem = parseFloat(desconto); // Converte o desconto para número
@@ -211,15 +213,14 @@ ipcMain.handle('get-products-for-caixa', async (event, {codigo, quantidade}) => 
       }
       
       const insetCaixa = await dbClient.query('INSERT INTO caixa (iduser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [idUser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total]);
-      if (insetCaixa.rows.length > 0) {
+      const updateProd = await dbClient.query('UPDATE produtos SET quantidade = $1 WHERE codigo = $2', [quantidadeProd, codigo]);
+      
+      if (insetCaixa.rows.length > 0 && updateProd.rows.length > 0) {
         return { success: true };  
       } else {
-        return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+        return { success: false, message: 'Falha ao fazer insert-update da acao de inserir dados no caixa e atualização de quantidade' };  
       }
     }
-
-    // Retorna o produto encontrado
-    return result.rows[0];
   } catch (err) {
     console.error('Erro ao buscar produto:', err);
     throw new Error('Erro ao buscar produto');
@@ -257,6 +258,38 @@ ipcMain.handle('delete-caixa', async (event, caixaId) => {
     return { success: false, message: 'Erro ao remover produtos' };  // Retorna erro em caso de falha
   }
 });
+
+ipcMain.handle('insert-relatorio-delete-caixa', async (event, {pagamento, total}) => {
+
+  try {
+      const data = new Date(); // isso pegará a data atual
+      let cliente = 1
+
+      const insetRelarorio = await dbClient.query('INSERT INTO relatoriovenda (id_usuario, id_cliente, data_venda, total, forma_pagamento) VALUES ($1, $2, $3, $4, $5)', [usuarioLogado, cliente, data, total, pagamento]);
+      
+      const deleteCaixa = await dbClient.query('DELETE FROM caixa WHERE idUser = $1', [usuarioLogado]);
+      
+      if (insetRelarorio.rows.length > 0) {
+        return { success: true };  
+      } else {
+        return { success: false, message: 'Falha ao fazer insert - [ERRO DE INSERT DO RELATORIO]' };  
+      }
+
+      if (deleteCaixa.rowCount > 0) {
+        return { success: true };  // Retorna sucesso
+      } else {
+        console.log('Nenhum produto encontrado para remover.');
+        return { success: false };  // Retorna falha caso não tenha sido encontrado nenhum produto
+      }
+    
+  } catch (err) {
+    console.error('Erro ao remover produtos:', err);
+    return { success: false, message: 'Erro ao remover produtos' };  // Retorna erro em caso de falha
+  }
+
+});
+
+
 
 app.whenReady().then(createWindow);
 

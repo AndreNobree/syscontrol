@@ -50,6 +50,8 @@
                             <input type="number" class="quantid" id="quantidade">
                         </div>
                     </div>
+                    
+                    <div id="error-message" style="color: red; display: none;">Campo Código e Quantidade são Obrigatórios</div>
 
                     <div class="inputs-intermediario">
                         <div class="nome-produto">
@@ -74,7 +76,7 @@
 
                     <div class="inputs-superior">
                         <div class="inputs-acao">
-                            <input type="submit" value="Adicionar Item" id="add-item" class="add-item">
+                            <input type="button" value="Adicionar Item" id="add-item" class="add-item">
                             <input type="button" value="Remover Item" id="delete-item" class="delete-item">
                         </div>
                     </div>
@@ -137,8 +139,8 @@
                 <div class="met-pagamentos">
                     <input type="button" id="dinheiro" value="Dinheiro" class="input-pag">
                     <input type="button" id="pix" value="Pix" class="input-pag">
-                    <input type="button" id="debito" value="Cartão de Débito" class="input-pag">
                     <input type="button" id="credito" value="Cartão de Crédito" class="input-pag">
+                    <input type="button" id="debito" value="Cartão de Débito" class="input-pag">
                 </div>
                 
                 <input type="button" id="close-btn2" value="Fechar" class="fechar-popup">

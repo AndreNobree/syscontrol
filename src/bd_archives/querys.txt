@@ -71,7 +71,6 @@ CREATE TABLE caixa (
     desconto VARCHAR(10),
     precodesc NUMERIC,
     total NUMERIC,
-    datacompra DATE
 );
 
 
@@ -107,4 +106,13 @@ CREATE TABLE fornecedor (
     dataregistro VARCHAR(255),
     ativo BOOLEAN DEFAULT TRUE,
     contrato VARCHAR(255)
+);
+
+CREATE TABLE relatoriovenda (
+    id BIGSERIAL PRIMARY KEY,             
+    id_usuario INTEGER NOT NULL,          
+    id_cliente INTEGER,                   
+    data_venda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    total NUMERIC NOT NULL,                              
+    forma_pagamento VARCHAR(255)
 );

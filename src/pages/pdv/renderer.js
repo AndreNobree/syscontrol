@@ -5,6 +5,8 @@ const home = document.querySelector('.home');
 const searchInput = document.getElementById("searchInput");
 const dropdownList = document.getElementById("dropdownList");
 const items = dropdownList.getElementsByTagName("a");
+const input = document.getElementById('codigo');
+let total = 0;
 
 // Adiciona um ouvinte de evento para o clique no ícone do menu
 menuPng.addEventListener('click', () => {
@@ -56,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //retornar os dados do bd na tabela do caixa
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    
     const caixa = await window.electron.getCaixa(); // Recebe os dados da tabela 'caixa'
     
     if (caixa && caixa.length > 0) {
@@ -124,7 +127,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Atualiza o subtotal no <h4>
       const h4Subtotal = document.querySelector('.valor-subtotal h4');
       if (h4Subtotal) {
-        h4Subtotal.textContent = `R$ ${totalSubtotal.toFixed(2)}`;
+        total = totalSubtotal.toFixed(2)
+        h4Subtotal.textContent = `R$ ${total}`;
       }
     } else {
       console.log('Nenhum produto encontrado.');
@@ -215,7 +219,6 @@ window.addEventListener('click', function(event) {
   }
 });
 
-const input = document.getElementById('codigo');
 //verifica o numero de caracteres do input
 input.addEventListener('input', function() {
   // Verifica a quantidade de caracteres no valor do input
@@ -235,25 +238,32 @@ document.getElementById('add-item').addEventListener('click', async () => {
   
   let quantidade = document.getElementById('quantidade').value;
   
-  // Verifica se a quantidade é válida, se não, define como 1
-  if (isNaN(quantidade) || quantidade <= 0) {
-    quantidade = 1;
-  }
-  try {
-    // Envia a requisição para o processo principal via preload
+  if (codigo == 0 || codigo == ""){
+    document.getElementById('error-message').style.display = 'block';
     
-    const response = await window.electron.getProductForCaixa(codigo, quantidade);
-    console.log(response);
-  } catch (err) {
-    
-    console.error('Erro ao tentar fazer o insert:', err);
   }
+    if (isNaN(quantidade) || quantidade <= 0) {
+      quantidade = 1;
+    }
+    try {      
+      const response = await window.electron.getProductForCaixa(codigo, quantidade);
+      console.log(response);
+    } catch (err) {
+      
+      console.error('Erro ao tentar fazer o insert:', err);
+    }
+  
 });
 
 
 //finaliza compra
 document.getElementById('finalizar-compra').addEventListener('click', async () => {
-  document.getElementById('popup2').style.display = 'flex';
+  if (total != 0){
+    document.getElementById('popup2').style.display = 'flex';
+  }else{
+    console.log()
+  }
+  
 })
 
 //configurações do dropdown search 
@@ -327,4 +337,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// pagamento dinheiro
+document.getElementById('dinheiro').addEventListener('click', async () => {
+  
+  try {    
+    const response = await window.electron.attCaixaRelatorio('dinheiro', total);
+    console.log(response);
+    window.location.reload(); // Recarrega a página
+  } catch (err) {
+    
+    console.error('Erro ao tentar fazer o insert:', err);
+  }
+})
 
+
+// pagamento pix
+document.getElementById('pix').addEventListener('click', async () => {
+  let pagamento = 'pix'
+  try {    
+    const response = await window.electron.attCaixaRelatorio(pagamento, total);
+    console.log(response);
+    window.location.reload(); // Recarrega a página
+  } catch (err) {
+    
+    console.error('Erro ao tentar fazer o insert:', err);
+  }
+})
+
+
+// pagamento credito
+document.getElementById('credito').addEventListener('click', async () => {
+  let pagamento = 'credito'
+  try {    
+    const response = await window.electron.attCaixaRelatorio(pagamento, total);
+    console.log(response);
+    window.location.reload(); // Recarrega a página
+  } catch (err) {
+    
+    console.error('Erro ao tentar fazer o insert:', err);
+  }
+})
+
+
+// pagamento debito
+document.getElementById('debito').addEventListener('click', async () => {
+  let pagamento = 'debito'
+  try {    
+    const response = await window.electron.attCaixaRelatorio(pagamento, total);
+    console.log(response);
+    window.location.reload(); // Recarrega a página
+  } catch (err) {
+    
+    console.error('Erro ao tentar fazer o insert:', err);
+  }
+})

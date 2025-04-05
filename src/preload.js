@@ -9,9 +9,10 @@ contextBridge.exposeInMainWorld('electron', {
   getProductById: (productId) => ipcRenderer.invoke('getProductById', productId),
   updateEditProduto: (codigo, produto, idcat, preco, quantidade, desconto, idRegistro) => ipcRenderer.invoke('update-produtos', { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }),
   getProdutosSelect: () => ipcRenderer.invoke('get-produtos-select'),
-  getProductForCaixa: (codigo, quantidade) => ipcRenderer.invoke('get-products-for-caixa', { codigo, quantidade }),
+  getProductForCaixa: (codigo, quantidade) => ipcRenderer.invoke('get-update-products-for-caixa', { codigo, quantidade }),
   getCaixa: () => ipcRenderer.invoke('get-caixa'),
   deleteCaixa: (caixaId) => ipcRenderer.invoke('delete-caixa', caixaId),
+  attCaixaRelatorio: (pagamento, total) => ipcRenderer.invoke('insert-relatorio-delete-caixa', { pagamento, total }),
 });
 
 
