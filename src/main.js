@@ -289,6 +289,24 @@ ipcMain.handle('insert-relatorio-delete-caixa', async (event, {pagamento, total}
 
 });
 
+ipcMain.handle('get-caixa-descontos', async () => {
+  const zero = 0;
+  try {
+    // Substitua esta consulta com a consulta real ao seu banco de dados
+    const result = await dbClient.query('SELECT produto, preco, desconto, precodesc FROM caixa WHERE iduser = $1 and desconto <> $2', [usuarioLogado, zero]);
+
+    if (result.rows.length === 0) {
+      // Se não houver nenhum item, retornará um array vazio
+      return [];
+    }
+
+    // Retorna todas as linhas da tabela 'caixa'
+    return result.rows;
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
 
 
 app.whenReady().then(createWindow);

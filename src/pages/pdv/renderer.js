@@ -16,9 +16,9 @@ menuPng.addEventListener('click', () => {
     home.classList.toggle('menu-lateral-aberto');
 });
 
-//tecla f1
+//tecla f2
 window.addEventListener('keydown', (event) => {
-    if (event.key === 'F1') {
+    if (event.key === 'F2') {
       const finalizaBotao = document.getElementById('finalizar-compra');
       if (finalizaBotao) {
         finalizaBotao.click();  // Simula o clique do botão
@@ -193,7 +193,6 @@ document.getElementById('delete-item').addEventListener('click', async function(
   }
 });
 
-
 // Função para fechar o popup
 document.getElementById('close-btn').addEventListener('click', function() {
   // Esconde o popup
@@ -213,9 +212,21 @@ document.getElementById('close-btn2').addEventListener('click', function() {
   document.getElementById('popup2').style.display = 'none';
 });
 
+
 window.addEventListener('click', function(event) {
   if (event.target === document.getElementById('popup2')) {
-      document.getElementById('popup2').style.display = 'none';
+    document.getElementById('popup2').style.display = 'none';
+  }
+});
+
+document.getElementById('close-btn3').addEventListener('click', function() {
+  // Esconde o popup
+  document.getElementById('popup3').style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target === document.getElementById('popup3')) {
+    document.getElementById('popup3').style.display = 'none';
   }
 });
 
@@ -241,17 +252,19 @@ document.getElementById('add-item').addEventListener('click', async () => {
   if (codigo == 0 || codigo == ""){
     document.getElementById('error-message').style.display = 'block';
     
-  }
+  }else{
     if (isNaN(quantidade) || quantidade <= 0) {
       quantidade = 1;
     }
     try {      
       const response = await window.electron.getProductForCaixa(codigo, quantidade);
       console.log(response);
+      window.location.reload(); // Recarrega a página
     } catch (err) {
       
       console.error('Erro ao tentar fazer o insert:', err);
-    }
+    }}
+
   
 });
 
@@ -336,6 +349,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Erro ao carregar os produtos:', err);
   }
 });
+
+//aplica desconto total
+window.addEventListener('keydown', async (event) => {
+  if (event.key === 'F3') {
+    if (total !== 0) {
+      document.getElementById('popup3').style.display = 'flex';
+
+      try {
+        // Obter os dados da tabela 'caixa' (dados do banco)
+        const desconto = await window.electron.getDesconto();
+
+        if (desconto && desconto.length > 0) {
+          const tbodyPopup = document.querySelector('#tabela-popup3 tbody');
+          tbodyPopup.innerHTML = ''; // limpa linhas antigas
+
+          desconto.forEach(item => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+              <td>${item.produto}</td> 
+              <td>${item.desconto}%</td> 
+              <td>R$${parseFloat(item.preco)}</td> 
+              <td>R$${parseFloat(item.precodesc)}</td> 
+            `;
+
+            tbodyPopup.appendChild(row);
+          });
+        } else {
+          console.log('Nenhum produto encontrado.');
+        }
+      } catch (err) {
+        console.log('Erro ao carregar a tabela:', err);
+      }
+
+    } else {
+      console.log('Total é 0, popup não será exibido.');
+    }
+  }
+});
+
 
 // pagamento dinheiro
 document.getElementById('dinheiro').addEventListener('click', async () => {

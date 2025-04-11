@@ -77,15 +77,13 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
     errorMessageDiv.textContent = 'Por favor, preencha a quantidade do produto.';
     return;
   }
-  if (precocompra === ""){
-    precocompra = 0
-  }
-  if (precoprazo === ""){
-    precoprazo = 0
-  }
-  if (preco.includes(",")){
-    preco = preco.replace(',', '.')
-  }
+  preco = preco?.toString() || "0";
+  precocompra = precocompra?.toString() || "0";
+  precoprazo = precoprazo?.toString() || "0";
+  
+  preco = preco.replace(',', '.');
+  precocompra = precocompra.replace(',', '.');
+  precoprazo = precoprazo.replace(',', '.');
 
   try {
 

@@ -1,19 +1,21 @@
+<!-- essa tela vai mostrar apenas as vendas realizadas da tabela relatoriosvenda -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estoque</title>
+  <title>PDV</title>
   <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
     <div class="menu-lateral">
         <ul>
             <li><a href="#">Dashboard</a></li>
             <li><a href="../pdv/index.html">PDV</a></li>
-            <li><a href="./index.html">Estoque</a></li>
+            <li><a href="../estoque/index.html">Estoque</a></li>
             <li><a href="#">Compras & Fornecedores</a></li>
-            <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
+            <li><a href="#">Relatórios de Vendas Diárias</a></li>
             <li><a href="#">Usuários</a></li>
             <li><a href="#">Configurações</a></li>
         </ul>
@@ -31,29 +33,12 @@
                 <img src="../../../media/pngwing.com (1).png" id="logout-png">
             </div>
         </div>
-
         <div class="menu-intermediario">
             <div class="titulo">
-                <h1>Meus Produtos:</h1>
+                <h1>Vendas de hoje:</h1>
             </div>
             <div class=""></div>
-            <div class="botoes-acao">
-                <input type="button" value="Remover Selecionado" id="remover">
-                <input type="button" value="Adicionar Produto" id="adicionar">
-            </div>
-        </div>
-
-        <div class="menu-inputs">
-            <div class="local-pesquisar">
-                <input type="text" id="filtro-nome" placeholder="Pesquisar por nome">
-            </div>
-            <div class=""></div>
-            <div class="local-filtrar">
-                <label>Filtrar por: </label>
-                <select name="filtro" id="filtro">
-                    <option value="">- Selecionar Categoria -</option>
-                </select>
-            </div>
+            
         </div>
 
         <div class="div-table">
@@ -61,13 +46,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Editar</th>
-                            <th>Código</th>
-                            <th>Nome</th>
-                            <th>Categoria</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Pagamento</th>
+                            <th>Dia/Hora</th>
+                            <th>Usuário</th>
                         </tr>
                     </thead>
 
@@ -76,7 +59,11 @@
                 </table>
             </div>
         </div>
+
+
     </div>
+
     <script src="renderer.js"></script>
+                  
 </body>
 </html>

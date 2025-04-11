@@ -14,7 +14,7 @@
             <li><a href="../pdv/index.html">PDV</a></li>
             <li><a href="../estoque/index.html">Estoque</a></li>
             <li><a href="#">Compras & Fornecedores</a></li>
-            <li><a href="#">Relatórios</a></li>
+            <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
             <li><a href="#">Usuários</a></li>
             <li><a href="#">Configurações</a></li>
         </ul>
@@ -132,7 +132,7 @@
                 <input type="button" id="close-btn" value="Fechar" class="fechar-popup">
             </div>
         </div>
-
+        <!--popup de finalizar pagamento-->
         <div id="popup2" class="popup2">
             <div class="popup2-content">
                 <h2>Método de Pagamento:</h2>
@@ -146,12 +146,31 @@
                 <input type="button" id="close-btn2" value="Fechar" class="fechar-popup">
             </div>
         </div>
+        <!--popup de finalizar pagamento-->
+        <div id="popup3" class="popup2">
+            <div class="popup3-content">
+                <h2>Descontos dessa venda:</h2>
+                    <table id="tabela-popup3">
+                        <thead>
+                            <tr>
+                                <th class="nome">Produto</th>
+                                <th class="desconto">Desconto</th>
+                                <th class="codigo">Valor</th>
+                                <th class="preco">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                <input type="button" id="close-btn3" value="Fechar" class="fechar-popup">
+            </div>
+        </div>
         
     </div>
     
     <div class="teclas-atalhos">
-        <p>F1 - Finaliza Compra</p>
-        <p>F3 - Aplicar Desconto da Compra</p>
+        <p>F2 - Finaliza Compra</p>
+        <p>F3 - Ver Descontos da Venda</p>
         <p>F4 - Remover Item</p>
         <p>Insert - Adiciona Produto</p>
     </div>
