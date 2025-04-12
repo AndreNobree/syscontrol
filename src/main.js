@@ -308,6 +308,33 @@ ipcMain.handle('get-caixa-descontos', async () => {
   }
 });
 
+ipcMain.handle('get-relatoriovenda', async () => {
+  try {
+    const { vendas, total } = await window.electron.getRelatorioVenda();
+
+    const tabela = document.getElementById("tabela-relatorio");
+    tabela.innerHTML = "";
+
+    vendas.forEach((venda) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${venda.nome || "N/A"}</td>
+        <td>R$ ${parseFloat(venda.total).toFixed(2)}</td>
+        <td>${venda.forma_pagamento}</td>
+        <td>${new Date(venda.data_venda).toLocaleString()}</td>
+        <td>${venda.usuario}</td>
+      `;
+      tabela.appendChild(tr);
+    });
+
+    // Exibir o total em algum lugar do HTML:
+    document.getElementById("total-dia").textContent = `Total do dia: R$ ${parseFloat(total).toFixed(2)}`;
+
+  } catch (err) {
+    console.error('Erro ao buscar dados do relatório:', err);
+    return { vendas: [], total: 0 };
+  }
+});
 
 app.whenReady().then(createWindow);
 

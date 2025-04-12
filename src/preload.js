@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('electron', {
   deleteCaixa: (caixaId) => ipcRenderer.invoke('delete-caixa', caixaId),
   attCaixaRelatorio: (pagamento, total) => ipcRenderer.invoke('insert-relatorio-delete-caixa', { pagamento, total }),
   getDesconto: () => ipcRenderer.invoke('get-caixa-descontos'),
+  getRelatorioVenda: () => ipcRenderer.invoke('get-relatoriovenda'),
 });
 
 
