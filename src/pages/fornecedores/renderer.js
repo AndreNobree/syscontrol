@@ -12,29 +12,28 @@ menuPng.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const relatorioVenda = await window.electron.getRelatorioVenda();
+  const fornecedor = await window.electron.getFornecedor();
 
-  // Extrai os dados corretamente do objeto retornado
-  const vendas = relatorioVenda.vendas;
-  const total = relatorioVenda.total;
-
-  const tabela = document.getElementById("tabela-relatorio");
+  const tabela = document.getElementById("tabela-fornecedor");
   tabela.innerHTML = ""; // limpa a tabela
 
-  vendas.forEach((venda) => {
+  fornecedor.forEach((venda) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-      <td>${venda.nome || "N/A"}</td>
-      <td>R$ ${parseFloat(venda.total).toFixed(2)}</td>
-      <td>${venda.forma_pagamento}</td>
-      <td>${new Date(venda.data_venda).toLocaleString()}</td>
-      <td>${venda.usuario}</td>
+      <td>${venda.contrato || "N/A"}</td>
+      <td>${venda.nome || "Não Cadastrado"}</td>
+      <td>${venda.cnpj || "Não Cadastrado"}</td>
+      <td>${venda.telefone || "Não Cadastrado"}</td>
+      <td>${venda.cep || "Não Cadastrado"}</td>
+      <td>${venda.email || "Não Cadastrado"}</td>
+      <td>${venda.ativo || "Não Cadastrado"}</td>
     `;
 
     tabela.appendChild(tr);
   });
-
-  // Exibe o total geral
-  document.getElementById("valor").textContent = `[ +R$ ${parseFloat(total).toFixed(2)} ]`;
 });
+
+document.getElementById('redirect-cliente').addEventListener('click', async function() { 
+  window.location.href = `../cliente-fornecedor/index.html`; // Redireciona para a tela de edição passando o ID
+})

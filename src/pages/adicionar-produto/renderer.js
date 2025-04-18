@@ -42,8 +42,8 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
   const idfornecedor  = document.getElementById('fornecedor').value;
   let precocompra = document.getElementById('preco-compra').value;
   let precoprazo = document.getElementById('preco-prazo').value;
-  let garantia = document.getElementById('garantia').value;
-  let comissao = document.getElementById('comissao').value;
+  // let garantia = document.getElementById('garantia').value;
+  // let comissao = document.getElementById('comissao').value;
 
   const errorMessageDiv = document.getElementById('error-message');
   errorMessageDiv.style.display = 'none';  // Esconde a mensagem de erro
@@ -109,7 +109,7 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
     sucessMessageDiv.style.display = 'block';  // Mostra a área de sucesso
     sucessMessageDiv.textContent = 'Produto ' +produto+ ' inserido com sucesso';
     
-    const response = await window.electron.addProduto(codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao);
+    const response = await window.electron.addProduto(codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedo);
 
     
     window.location.reload();

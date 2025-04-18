@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('electron', {
   getProducts: (categoriaId, filtroNome) => ipcRenderer.invoke('get-products', categoriaId, filtroNome),
   getCategorias: () => ipcRenderer.invoke('get-categorias'),
   deleteProducts: (productIds) => ipcRenderer.invoke('delete-products', productIds),
-  addProduto: (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao) => ipcRenderer.invoke('insert-produtos', { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao }),
+  addProduto: (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor) => ipcRenderer.invoke('insert-produtos', { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor }),
   getProductById: (productId) => ipcRenderer.invoke('getProductById', productId),
   updateEditProduto: (codigo, produto, idcat, preco, quantidade, desconto, idRegistro) => ipcRenderer.invoke('update-produtos', { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }),
   getProdutosSelect: () => ipcRenderer.invoke('get-produtos-select'),
@@ -15,6 +15,8 @@ contextBridge.exposeInMainWorld('electron', {
   attCaixaRelatorio: (pagamento, total) => ipcRenderer.invoke('insert-relatorio-delete-caixa', { pagamento, total }),
   getDesconto: () => ipcRenderer.invoke('get-caixa-descontos'),
   getRelatorioVenda: () => ipcRenderer.invoke('get-relatoriovenda'),
+  getCliente: () => ipcRenderer.invoke('get-clientes'),
+  getFornecedor: () => ipcRenderer.invoke('get-fornecedor'),
 });
 
 

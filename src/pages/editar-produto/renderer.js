@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       
     } catch (error) {
       console.error('Erro ao carregar o produto:', error);
-      alert('Erro ao carregar os dados do produto.');
     }
     
 });

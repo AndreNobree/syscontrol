@@ -1,10 +1,12 @@
+<!-- essa tela vai mostrar apenas as vendas realizadas da tabela relatoriosvenda -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estoque</title>
+  <title>Cliente & Fornecedor</title>
   <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
     <div class="menu-lateral">
@@ -31,29 +33,18 @@
                 <img src="../../../media/pngwing.com (1).png" id="logout-png">
             </div>
         </div>
-
+        <div class="secao-cliente-fornecedor">
+            <input type="button" value="Cliente" id="redirect-cliente">
+            <input type="button" value="Fornecedor" id="redirect-fornecedor">
+        </div>
         <div class="menu-intermediario">
             <div class="titulo">
-                <h1>Meus Produtos:</h1>
+                <h1>Clientes:</h1>
             </div>
-            <div class=""></div>
-            <div class="botoes-acao">
-                <input type="button" value="Remover Selecionado" id="remover">
-                <input type="button" value="Adicionar Produto" id="adicionar">
+            <div class="botoes-acao" id="valor">
+                <input value="Cadastrar Cliente" id="cad-cliente" type="button">
             </div>
-        </div>
-
-        <div class="menu-inputs">
-            <div class="local-pesquisar">
-                <input type="text" id="filtro-nome" placeholder="Pesquisar por nome">
-            </div>
-            <div class=""></div>
-            <div class="local-filtrar">
-                <label>Filtrar por: </label>
-                <select name="filtro" id="filtro">
-                    <option value="">- Selecionar Categoria -</option>
-                </select>
-            </div>
+            
         </div>
 
         <div class="div-table">
@@ -61,22 +52,24 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Editar</th>
-                            <th>Código</th>
                             <th>Nome</th>
-                            <th>Categoria</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
+                            <th>Celular</th>
+                            <th>CPF</th>
+                            <th>CEP</th>
+                            <th>E-mail</th>
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="tabela-cliente">
                     </tbody>
                 </table>
             </div>
         </div>
+
+
     </div>
+
     <script src="renderer.js"></script>
+                  
 </body>
 </html>

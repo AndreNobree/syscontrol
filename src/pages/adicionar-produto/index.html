@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Produto</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="menu-lateral">
@@ -13,7 +12,7 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="../pdv/index.html">PDV</a></li>
             <li><a href="../estoque/index.html">Estoque</a></li>
-            <li><a href="#">Compras & Fornecedores</a></li>
+            <li><a href="../cliente-fornecedor/index.html">Clientes & Fornecedores</a></li>
             <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
             <li><a href="#">Usuários</a></li>
             <li><a href="#">Configurações</a></li>
@@ -74,10 +73,10 @@
                         <label>Desconto:</label><br>
                         <input type="text" id="desconto" >
                     </div>
-                    <div class="lateral">
+                    <!-- <div class="lateral">
                         <label>Comissao:</label><br>
                         <input type="text" id="comissao" >
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="form-inferior">
@@ -95,10 +94,10 @@
                         <input type="text" id="preco-prazo"><br>
                     </div>
 
-                    <div class="lateral">
+                    <!-- <div class="lateral">
                         <label>Garantia:</label><br>
                         <input type="text" id="garantia" placeholder="Dias de garantia">
-                    </div>
+                    </div> -->
                     
                 </div>
 
@@ -113,13 +112,6 @@
         </div>
         
     <script src="renderer.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
                   
-    <script>
-        $(document).ready(function() {
-        $('#search').select2();  // Torna o select pesquisável
-        });
-    </script>
 </body>
 </html>

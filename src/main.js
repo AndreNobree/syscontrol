@@ -126,9 +126,9 @@ ipcMain.handle('get-produtos-select', async () => {
   }
 });
 
-ipcMain.handle('insert-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao }) => {
+ipcMain.handle('insert-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor }) => {
   try {
-    const res = await dbClient.query('INSERT INTO produtos (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao]);
+    const res = await dbClient.query('INSERT INTO produtos (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -310,29 +310,75 @@ ipcMain.handle('get-caixa-descontos', async () => {
 
 ipcMain.handle('get-relatoriovenda', async () => {
   try {
-    const { vendas, total } = await window.electron.getRelatorioVenda();
+    // Consulta principal: registros de vendas do dia
+    const vendasRes = await dbClient.query(`
+      SELECT 
+        b.nome, 
+        a.total, 
+        a.forma_pagamento, 
+        a.data_venda, 
+        c.usuario
+      FROM relatoriovenda a
+      LEFT JOIN clientes b ON a.id_cliente = b.id
+      LEFT JOIN users c ON a.id_usuario = c.id
+      WHERE DATE(a.data_venda) = CURRENT_DATE;
+    `);
 
-    const tabela = document.getElementById("tabela-relatorio");
-    tabela.innerHTML = "";
+    // Consulta do total geral
+    const totalRes = await dbClient.query(`
+      SELECT 
+        SUM(a.total) AS total_geral
+      FROM relatoriovenda a
+      WHERE DATE(a.data_venda) = CURRENT_DATE;
+    `);
 
-    vendas.forEach((venda) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${venda.nome || "N/A"}</td>
-        <td>R$ ${parseFloat(venda.total).toFixed(2)}</td>
-        <td>${venda.forma_pagamento}</td>
-        <td>${new Date(venda.data_venda).toLocaleString()}</td>
-        <td>${venda.usuario}</td>
-      `;
-      tabela.appendChild(tr);
-    });
+    const vendas = vendasRes.rows;
+    const total = totalRes.rows[0].total_geral || 0; // evita null
 
-    // Exibir o total em algum lugar do HTML:
-    document.getElementById("total-dia").textContent = `Total do dia: R$ ${parseFloat(total).toFixed(2)}`;
+    return {
+      vendas,
+      total
+    };
 
   } catch (err) {
     console.error('Erro ao buscar dados do relatório:', err);
     return { vendas: [], total: 0 };
+  }
+});
+
+ipcMain.handle('get-clientes', async () => {
+  try {
+    // Substitua esta consulta com a consulta real ao seu banco de dados
+    const result = await dbClient.query('SELECT nome, celular, cpf_cnpj, cep, email FROM clientes LIMIT 50');
+
+    if (result.rows.length === 0) {
+      // Se não houver nenhum item, retornará um array vazio
+      return [];
+    }
+
+    // Retorna todas as linhas da tabela 'caixa'
+    return result.rows;
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
+
+ipcMain.handle('get-fornecedor', async () => {
+  try {
+    // Substitua esta consulta com a consulta real ao seu banco de dados
+    const result = await dbClient.query('SELECT contrato, nome, cnpj, telefone, cep, email, ativo FROM fornecedor LIMIT 50');
+
+    if (result.rows.length === 0) {
+      // Se não houver nenhum item, retornará um array vazio
+      return [];
+    }
+
+    // Retorna todas as linhas da tabela 'caixa'
+    return result.rows;
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
   }
 });
 
@@ -343,4 +389,6 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+
 

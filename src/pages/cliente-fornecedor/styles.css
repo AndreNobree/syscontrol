@@ -123,7 +123,7 @@
 }
 .menu-intermediario{
     z-index: 1;
-    margin-top: 50px;
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
 }
@@ -166,10 +166,41 @@ thead{
     font-weight: bold;
     color: #CA6924;
 }
-.valor{
-    margin-right: 40px;
-    color: #28A745;
+.secao-cliente-fornecedor{
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    display: flex;
+}
+.secao-cliente-fornecedor input{
+    width: 50%;
+    outline: none;
+    border-radius: 6px;
+    border: solid 1px #b96225;
+    cursor: pointer;
+    transition: .6s;
+}
+#redirect-cliente{
+    background-color: #b96225;
+    color: #fff;
+}
+#redirect-fornecedor:hover{
+    background-color:#CA6924;
+    color: #fff;
+}
+.botoes-acao input{
+    cursor: pointer;
+    margin-right: 30px;
+    padding: 12px;
     font-family: 'Poppins', sans-serif;
-    font-size: 30px;
-    font-weight: bold;
+    border-radius: 6px;
+    border: #CA6924 1px solid;
+    color: #CA6924;
+    cursor: pointer;
+    transition: .6s;
+}
+.botoes-acao input:hover{
+    background-color: #CA6924;
+    color: #fff;
 }
