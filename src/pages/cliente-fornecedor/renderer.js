@@ -36,3 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 document.getElementById('redirect-fornecedor').addEventListener('click', async function() { 
   window.location.href = `../fornecedores/index.html`; // Redireciona para a tela de edição passando o ID
 })
+
+document.getElementById('cad-cliente').addEventListener('click', async function() { 
+  window.location.href = `../cadastrar-cliente/index.html`; // Redireciona para a tela de edição passando o ID
+})

@@ -1,10 +1,12 @@
+<!-- essa tela vai mostrar apenas as vendas realizadas da tabela relatoriosvenda -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editar Produto</title>
+  <title>Cliente & Fornecedor</title>
   <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
     <div class="menu-lateral">
@@ -25,13 +27,12 @@
                 <img src="../../../media/pngwing.com (2).png" id="menu-png">
                 <h4>Syscontrol</h4>
             </div>
-          <div></div>
-          <div class="btn-info">
-            <img src="../../../media/pngwing.com.png" id="user-png">
-            <img src="../../../media/pngwing.com (1).png" id="logout-png">
-          </div>
-        </div>
-
+            <div></div>
+            <div class="btn-info">
+                <img src="../../../media/pngwing.com.png" id="user-png">
+                <img src="../../../media/pngwing.com (1).png" id="logout-png">
+            </div>
+        </div>  
         <div class="menu-intermediario">
             <input type="button" value="< VOLTAR" id="btn-voltar">
         </div>
@@ -40,37 +41,40 @@
             <form id="addprod">
                 <div class="form-superior">
                     <div class="">
-                        <label>Código do produto:</label><br>
+                        <label>Nome:</label><br>
                         <input type="text" id="codigo"><br>
                     </div>
                     
                     <div class="lateral">
-                        <label>Categoria:</label><br>
-                        <select name="filtro" id="filtro">
-                            <option value="">- Selecionar Categoria -</option>
-                        </select>
+                        <label>Celular:</label><br>
+                        <input type="text" id="codigo"><br>
                     </div>
                     <p id="id-registro"></p>
+                    <div class="lateral">
+                        <label>CPF/CNPJ:</label><br>
+                        <input type="text" id="produto">
+                    </div>
                     
                 </div>
                 
                 <div class="form-intermediario">
-                    <label>Produto:</label><br>
+                    <label>E-mail:</label><br>
                     <input type="text" id="produto">
+                    
                 </div>
 
                 <div class="form-inferior">
                     <div class="">
-                        <label>Preço:</label><br>
+                        <label>CEP:</label><br>
                         <input type="text" id="preco"><br>
                     </div>
                     <div class="lateral">
-                        <label>Quantidade: </label><br>
+                        <label>Endereço: </label><br>
                         <input type="number" id="quantidade"><br>
                     </div>
                     <div class="lateral">
-                        <label>Desconto:</label><br>
-                        <input type="text" id="desconto" value="0">
+                        <label>Complemento:</label><br>
+                        <input type="text" id="desconto" >
                     </div>
                     
                 </div>
@@ -85,6 +89,8 @@
             </form>
         </div>
     </div>
+
     <script src="renderer.js"></script>
+                  
 </body>
 </html>
