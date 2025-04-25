@@ -121,63 +121,61 @@
     background-color: #CA6924;
     display: flex;
 }
+.btn-info p{
+    font-family: 'Poppins', sans-serif;
+    margin-right: 10px;
+    background-color: #CA6924;
+    color: #fff;
+}
 .menu-intermediario{
     z-index: 1;
-    margin-top: 40px;
+    margin-top: 50px;
     display: flex;
     justify-content: space-between;
 }
-.formulario, .menu-intermediario, .botoes-acao{
-    margin-top: 30px;
-    font-family: 'Poppins', sans-serif;
-}
-form, .menu-intermediario{
+.titulo{
     margin-left: 30px;
-}
-.form-superior, .form-inferior{
-    display: flex;
-}
-.form-intermediario, .form-inferior{
-    margin-top: 20px;
-}
-input{
-    padding: 12px;
-    border-radius: 6px;
-    outline: none;
-    border: 1px solid #999;
-    background-color: #fff;
-    color: #222;
+    color: #333;
     font-family: 'Poppins', sans-serif;
 }
-#btn-voltar{
-    cursor: pointer;
-    color: #fff;
-    outline: none;
-    border: 1px solid #ca6924;
-    background-color: #CA6924;
-    transition: .6s;
+.div-table{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+.tabela{
+    margin-top: 20px;
+    width: 90%;
+    height: 60vh;
+    border-radius: 6px;
+    background-color: #fff;
+    border: rgb(212, 212, 212) solid 1px;
+    overflow: auto;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+thead{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f3f3f3;
     font-weight: bold;
+    color: #CA6924;
 }
-.lateral{
-    margin-left: 20px;
-}
-#botao-cadastro{
+.edit{
     cursor: pointer;
-    color: #fff;
-    outline: none;  
-    border: 1px solid #145472;
-    background-color: #145472;
-    transition: .6s;
-    font-weight: bold;
-}
-#botao-cadastro:hover{
-    border: 1px solid #236888;
-    background-color: #236888;
-}
-#btn-voltar:hover{
-    border: 1px solid #e6823b;
-    background-color: #e6823b;
-}
-#id-registro{
-    color: red;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    margin-right: 15px;
 }

@@ -5,6 +5,7 @@ const dbClient = require('./db');
 let mainWindow;
 
 let usuarioLogado = null;
+let nomeUsuarioLogado = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -29,6 +30,7 @@ ipcMain.handle('verify-login', async (event, { username, password }) => {
 
     if (res.rows.length > 0) {
       usuarioLogado = res.rows[0].id;
+      nomeUsuarioLogado = username
       return { success: true };  
     } else {
       return { success: false, message: 'Usuário ou senha incorretos' };  
@@ -38,6 +40,29 @@ ipcMain.handle('verify-login', async (event, { username, password }) => {
     return { success: false, message: 'Erro ao verificar login' };
   }
 });
+
+ipcMain.handle('get-usuario', async () => {
+  try {
+    return nomeUsuarioLogado; 
+  } catch (err) {
+    console.error('Erro ao buscar o usuario logado:', err);
+    return []; 
+  }
+});
+
+ipcMain.handle('get-all-users', async () => {
+  try {
+    const res = await dbClient.query('SELECT a.id, a.usuario, a.idnivel, b.nomenivel FROM users a LEFT JOIN niveis b ON a.idnivel = b.nivel');  
+    if (res.rows.length === 0) {
+      console.log("Nenhum usuário encontrado na tabela.");
+    }
+    return res.rows; 
+  } catch (err) {
+    console.error('Erro ao buscar usuários:', err);
+    return []; 
+  }
+});
+
 
 ipcMain.handle('get-products', async (event, categoriaId, filtroNome) => {
   try {
@@ -381,6 +406,36 @@ ipcMain.handle('get-fornecedor', async () => {
     throw new Error('Erro ao buscar produto');
   }
 });
+
+ipcMain.handle('insert-cliente', async (event, { nome, celular, cpf_cnpj, email, cep, endereco, complemento }) => {
+  try {
+    const res = await dbClient.query('INSERT INTO clientes (nome, celular, cpf_cnpj, email, cep, endereco, complemento) VALUES ($1, $2, $3, $4, $5, $6, $7)', [nome, celular, cpf_cnpj, email, cep, endereco, complemento]);
+
+    if (res.rows.length > 0) {
+      return { success: true };  
+    } else {
+      return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+    }
+  } catch (err) {
+    console.error('Erro ao fazer insert no banco:', err);
+    return { success: false, message: 'Erro ao fazer insert no banco' };
+  }
+});
+ipcMain.handle('insert-fornecedor', async (event, { nome, telefone, cnpj, email, cep, endereco }) => {
+  try {
+    const res = await dbClient.query('INSERT INTO fornecedor (nome, telefone, cnpj, email, cep, endereco) VALUES ($1, $2, $3, $4, $5, $6)', [nome, telefone, cnpj, email, cep, endereco]);
+
+    if (res.rows.length > 0) {
+      return { success: true };  
+    } else {
+      return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+    }
+  } catch (err) {
+    console.error('Erro ao fazer insert no banco:', err);
+    return { success: false, message: 'Erro ao fazer insert no banco' };
+  }
+});
+
 
 app.whenReady().then(createWindow);
 

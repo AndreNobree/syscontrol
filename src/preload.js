@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
   verifyLogin: (username, password) => ipcRenderer.invoke('verify-login', { username, password }),
+  getUsuario: () => ipcRenderer.invoke('get-usuario'),
+  getAllUsers: () => ipcRenderer.invoke('get-all-users'),
   getProducts: (categoriaId, filtroNome) => ipcRenderer.invoke('get-products', categoriaId, filtroNome),
   getCategorias: () => ipcRenderer.invoke('get-categorias'),
   deleteProducts: (productIds) => ipcRenderer.invoke('delete-products', productIds),
@@ -17,6 +19,8 @@ contextBridge.exposeInMainWorld('electron', {
   getRelatorioVenda: () => ipcRenderer.invoke('get-relatoriovenda'),
   getCliente: () => ipcRenderer.invoke('get-clientes'),
   getFornecedor: () => ipcRenderer.invoke('get-fornecedor'),
+  addFornecedor: (nome, telefone, cnpj, email, cep, endereco) => ipcRenderer.invoke('insert-fornecedor', { nome, telefone, cnpj, email, cep, endereco }),
+  addCliente: (nome, celular, cpf_cnpj, email, cep, endereco, complemento) => ipcRenderer.invoke('insert-cliente', { nome, celular, cpf_cnpj, email, cep, endereco, complemento }),
 });
 
 

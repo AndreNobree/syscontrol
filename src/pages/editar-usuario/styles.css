@@ -121,26 +121,23 @@
     background-color: #CA6924;
     display: flex;
 }
-.menu-intermediario{
-    z-index: 1;
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
+.btn-info p{
+    font-family: 'Poppins', sans-serif;
+    margin-right: 10px;
+    background-color: #CA6924;
+    color: #fff;
 }
 .formulario, .menu-intermediario, .botoes-acao{
     margin-top: 30px;
     font-family: 'Poppins', sans-serif;
 }
-form, .menu-intermediario{
+form{
     margin-left: 30px;
 }
-.form-superior, .form-inferior{
+.form-superior{
     display: flex;
 }
-.form-intermediario, .form-inferior{
-    margin-top: 20px;
-}
-input{
+input, select{
     padding: 12px;
     border-radius: 6px;
     outline: none;
@@ -161,7 +158,7 @@ input{
 .lateral{
     margin-left: 20px;
 }
-#botao-cadastro{
+#botao-editar{
     cursor: pointer;
     color: #fff;
     outline: none;  
@@ -170,7 +167,7 @@ input{
     transition: .6s;
     font-weight: bold;
 }
-#botao-cadastro:hover{
+#botao-editar:hover{
     border: 1px solid #236888;
     background-color: #236888;
 }

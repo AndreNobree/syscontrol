@@ -16,7 +16,7 @@
             <li><a href="../estoque/index.html">Estoque</a></li>
             <li><a href="../fornecedores/index.html">Clientes & Fornecedores</a></li>
             <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
-            <li><a href="#">Usuários</a></li>
+            <li><a href="../usuarios/index.html">Usuários</a></li>
             <li><a href="#">Configurações</a></li>
         </ul>
     </div>
@@ -32,6 +32,63 @@
                 <img src="../../../media/pngwing.com.png" id="user-png">
                 <img src="../../../media/pngwing.com (1).png" id="logout-png">
             </div>
+        </div>
+
+        <div class="menu-intermediario">
+            <input type="button" value="< VOLTAR" id="btn-voltar">
+        </div>
+
+
+        <div class="formulario">
+            <form id="addprod">
+                <div class="form-superior">
+                    <div class="">
+                        <label>Nome:</label><br>
+                        <input type="text" id="nome"><br>
+                    </div>
+                    
+                    <div class="lateral">
+                        <label>Telefone:</label><br>
+                        <input type="text" id="telefone"><br>
+                    </div>
+                    <p id="id-registro"></p>
+                    <div class="lateral">
+                        <label>CNPJ:</label><br>
+                        <input type="text" id="cnpj">
+                    </div>
+                    
+                </div>
+                
+                <div class="form-intermediario">
+                    <label>E-mail:</label><br>
+                    <input type="text" id="email">
+                    
+                </div>
+
+                <div class="form-inferior">
+                    <div class="">
+                        <label>CEP:</label><br>
+                        <input type="text" id="cep"><br>
+                    </div>
+                    <div class="lateral">
+                        <label>Endereço: </label><br>
+                        <input type="text" id="endereco"><br>
+                    </div>
+                    <!-- <div class="lateral">
+                        <label>Complemento:</label><br>
+                        <input type="text" id="complemento" >
+                    </div> -->
+                    
+                </div>
+
+                <div id="error-message" style="color: red; display: none;"></div>
+                <div id="sucess-message" style="color: green; display: none;"></div>
+                
+                <div class="botoes-acao">
+                    <input type="button" value="Cadastrar Fornecedor" id="botao-cadastro">
+                </div>
+
+            </form>
         </div>
 
     </div>

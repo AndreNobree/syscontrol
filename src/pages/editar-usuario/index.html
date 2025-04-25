@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editar Produto</title>
+  <title>Cliente & Fornecedor</title>
   <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
     <div class="menu-lateral">
@@ -12,7 +13,7 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="../pdv/index.html">PDV</a></li>
             <li><a href="../estoque/index.html">Estoque</a></li>
-            <li><a href="../cliente-fornecedor/index.html">Clientes & Fornecedores</a></li>
+            <li><a href="../fornecedores/index.html">Clientes & Fornecedores</a></li>
             <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
             <li><a href="../usuarios/index.html">Usuários</a></li>
             <li><a href="#">Configurações</a></li>
@@ -25,13 +26,12 @@
                 <img src="../../../media/pngwing.com (2).png" id="menu-png">
                 <h4>Syscontrol</h4>
             </div>
-          <div></div>
-          <div class="btn-info">
-            <img src="../../../media/pngwing.com.png" id="user-png">
-            <img src="../../../media/pngwing.com (1).png" id="logout-png">
-          </div>
+            <div></div>
+            <div class="btn-info">
+                <p id="nome-user"></p>
+                <img src="../../../media/pngwing.com (1).png" id="logout-png">
+            </div>
         </div>
-
         <div class="menu-intermediario">
             <input type="button" value="< VOLTAR" id="btn-voltar">
         </div>
@@ -40,48 +40,20 @@
             <form id="addprod">
                 <div class="form-superior">
                     <div class="">
-                        <label>Código do produto:</label><br>
+                        <label>Usuario:</label><br>
                         <input type="text" id="codigo"><br>
                     </div>
                     
                     <div class="lateral">
-                        <label>Categoria:</label><br>
+                        <label>Cargo:</label><br>
                         <select name="filtro" id="filtro">
-                            <option value="">- Selecionar Categoria -</option>
+                            <option value="">- Selecionar Cargo -</option>
                         </select>
                     </div>
                     <p id="id-registro"></p>
                     
                 </div>
                 
-                <div class="form-intermediario">
-                    <div>
-                        <label>Produto:</label><br>
-                        <input type="text" id="produto" >
-                    </div>
-
-                    <div class="lateral">
-                        <label>Quantidade: </label><br>
-                        <input type="number" id="quantidade"><br>
-                    </div>
-                    <div class="lateral">
-                        <label>Desconto:</label><br>
-                        <input type="text" id="desconto" >
-                    </div>
-                </div>
-
-                <div class="form-inferior">
-                    <div class="">
-                        <label>Preço Venda:</label><br>
-                        <input type="text" id="preco"><br>
-                    </div>
-                    <div class="lateral">
-                        <label>Preço Compra:</label><br>
-                        <input type="text" id="precoc" disabled style="background-color: #7e7e7e; color: black">
-                    </div>
-                    
-                </div>
-
                 <div id="error-message" style="color: red; display: none;"></div>
                 <div id="sucess-message" style="color: green; display: none;"></div>
                 
@@ -93,5 +65,6 @@
         </div>
     </div>
     <script src="renderer.js"></script>
+                  
 </body>
 </html>

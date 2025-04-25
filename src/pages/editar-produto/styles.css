@@ -128,7 +128,7 @@
 form, .menu-intermediario{
     margin-left: 30px;
 }
-.form-superior, .form-inferior{
+.form-superior, .form-inferior, .form-intermediario{
     display: flex;
 }
 .form-intermediario, .form-inferior{

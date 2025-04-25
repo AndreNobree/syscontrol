@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('quantidade').value = isNaN(product.quantidade) ? '' : product.quantidade;
       document.getElementById('desconto').value = product.desconto.trim();
       document.getElementById('id-registro').value = productId;
+      document.getElementById('precoc').value = product.precocompra.trim();
+      document.getElementById('filtro').value = product.idcat
     
       
     } catch (error) {
