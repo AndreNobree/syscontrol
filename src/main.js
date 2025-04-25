@@ -63,6 +63,18 @@ ipcMain.handle('get-all-users', async () => {
   }
 });
 
+ipcMain.handle('getUsersById', async (event, userId) => {
+  try {
+    const res = await dbClient.query('SELECT a.id, a.usuario, a.idnivel, b.nomenivel FROM users a LEFT JOIN niveis b ON a.idnivel = b.nivel WHERE a.id = $1', [userId]);  
+    if (res.rows.length === 0) {
+      console.log("Nenhum usuário encontrado na tabela.");
+    }
+    return res.rows; 
+  } catch (err) {
+    console.error('Erro ao buscar usuários:', err);
+    return []; 
+  }
+});
 
 ipcMain.handle('get-products', async (event, categoriaId, filtroNome) => {
   try {

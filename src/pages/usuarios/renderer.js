@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   
       tabela.addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('edit')) {
-          const productId = e.target.getAttribute('data-id'); // Pega o ID do produto
-          window.location.href = `../editar-usuario/index.html?id=${productId}`; // Redireciona para a tela de edição passando o ID
+          const userId = e.target.getAttribute('data-id'); // Pega o ID do produto
+          window.location.href = `../editar-usuario/index.html?id=${userId}`; // Redireciona para a tela de edição passando o ID
         }
       });
 

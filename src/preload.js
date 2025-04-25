@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('electron', {
   verifyLogin: (username, password) => ipcRenderer.invoke('verify-login', { username, password }),
   getUsuario: () => ipcRenderer.invoke('get-usuario'),
   getAllUsers: () => ipcRenderer.invoke('get-all-users'),
+  getUserById: (userId) => ipcRenderer.invoke('getUsersById', userId),
   getProducts: (categoriaId, filtroNome) => ipcRenderer.invoke('get-products', categoriaId, filtroNome),
   getCategorias: () => ipcRenderer.invoke('get-categorias'),
   deleteProducts: (productIds) => ipcRenderer.invoke('delete-products', productIds),
