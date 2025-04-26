@@ -41,4 +41,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       tabela.appendChild(tr);
     });
   });
+
+document.getElementById('cad-user').addEventListener('click', async () => {
+  window.location.href = '../cadastrar-usuario/index.html'
+})
   

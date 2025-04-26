@@ -3,9 +3,6 @@ const menuPng = document.getElementById('menu-png');
 const menuLateral = document.querySelector('.menu-lateral');
 const home = document.querySelector('.home');
 
-const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get('id'); // Pega o ID do produto da URL
-
 // Adiciona um ouvinte de evento para o clique no ícone do menu
 menuPng.addEventListener('click', () => {
     // Alterna a classe 'menu-lateral-exibido' para mostrar ou esconder o menu
@@ -15,16 +12,6 @@ menuPng.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const nomeUsuarioLogado = await window.electron.getUsuario();
-    const nomeUser = document.getElementById("nome-user");
-    nomeUser.innerHTML = nomeUsuarioLogado;
-
-    
-
-    if (!userId) {
-      alert("Usuário não encontrado.");
-      return;
-    }
     
     try {
 
@@ -37,18 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         option.textContent = nivel.nomenivel;
         select.appendChild(option);
       })
-
-      // Carrega os dados do produto a partir do ID
-      const user = await window.electron.getUserById(userId);
-    
-      if (!user) {
-        alert("Usuario não encontrado.");
-        return;
-      }
-    
-      // Preenche os campos do formulário com os dados do produto
-      document.getElementById('nome').value = user.usuario
-    
+   
       
     } catch (error) {
       console.error('Erro ao carregar o produto:', error);
@@ -69,21 +45,11 @@ document.getElementById('botao-editar').addEventListener('click', async () => {
     errorMessageDiv.textContent = 'Por favor, preencha o usuario.';
     return;
   }
-  if(senha === ""){
-    errorMessageDiv.style.display = 'block';  // Mostra a área de erro
-    errorMessageDiv.textContent = 'Por favor, preencha a senha.';
-    return;
-  }
-  if(cargo === ""){
-    errorMessageDiv.style.display = 'block';  // Mostra a área de erro
-    errorMessageDiv.textContent = 'Por favor, preencha o cargo.';
-    return;
-  }
 
   try {
 
 
-    const response = await window.electron.updateEditUser(nome, senha, cargo, userId);
+    const response = await window.electron.addUser(nome, senha, cargo);
 
     console.log('Resposta do backend:', response);
 

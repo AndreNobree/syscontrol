@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cliente & Fornecedor</title>
+  <title>Cadastrar Usuário</title>
   <link rel="stylesheet" href="styles.css">
   
 </head>
@@ -43,25 +43,28 @@
                         <label>Usuario:</label><br>
                         <input type="text" id="nome"><br>
                     </div>
-                    
                     <div class="lateral">
-                        <label>Cargo:</label><br>
-                        <select name="filtro" id="filtro">
-                            <option value="">- Selecionar Cargo -</option>
-                        </select>
-                    </div>
-                    <p id="id-registro"></p>
+                        <label>Senha:</label><br>
+                        <input type="password" id="senha"><br>
+                    </div
                     
+                </div>
+
+                <div class="cargo">
+                    <label>Cargo:</label><br>
+                    <select name="filtro" id="filtro">
+                        <option value="">- Selecionar Cargo -</option>
+                    </select>
                 </div>
                 
                 <div id="error-message" style="color: red; display: none;"></div>
                 <div id="sucess-message" style="color: green; display: none;"></div>
                 
-                <div class="botoes-acao">
-                    <input type="button" value="Concluir Alteração" id="botao-editar">
-                </div>
-
+                
             </form>
+        </div>
+        <div class="botoes-acao">
+            <input type="button" value="Concluir Alteração" id="botao-editar">
         </div>
     </div>
     <script src="renderer.js"></script>

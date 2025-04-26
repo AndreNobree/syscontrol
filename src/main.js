@@ -69,9 +69,54 @@ ipcMain.handle('getUsersById', async (event, userId) => {
     if (res.rows.length === 0) {
       console.log("Nenhum usuário encontrado na tabela.");
     }
-    return res.rows; 
+    return res.rows[0];
   } catch (err) {
     console.error('Erro ao buscar usuários:', err);
+    return []; 
+  }
+});
+
+ipcMain.handle('update-users', async (event, { nome, senha, cargo, userId }) => {
+  try {
+
+    const res3 = await dbClient.query('UPDATE users SET usuario = $1, senha = $2, idnivel = $3 where id = $4', [nome, senha, cargo, userId]);
+
+    if (res3.rows.length > 0) {
+      return { success: true };  
+    } else {
+      return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+    }
+  } catch (err) {
+    console.error('Erro ao fazer insert no banco:', err);
+    return { success: false, message: 'Erro ao fazer insert no banco' };
+  }
+});
+
+ipcMain.handle('insert-users', async (event, { nome, senha, cargo }) => {
+  try {
+
+    const res3 = await dbClient.query('INSERT INTO users (usuario, senha, idnivel) values ($1, $2, $3)', [nome, senha, cargo]);
+
+    if (res3.rows.length > 0) {
+      return { success: true };  
+    } else {
+      return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
+    }
+  } catch (err) {
+    console.error('Erro ao fazer insert no banco:', err);
+    return { success: false, message: 'Erro ao fazer insert no banco' };
+  }
+});
+
+ipcMain.handle('get-niveis', async () => {
+  try {
+    const res = await dbClient.query('SELECT * FROM niveis');  
+    if (res.rows.length === 0) {
+      console.log("Nenhum nivel encontrado na tabela.");
+    }
+    return res.rows; 
+  } catch (err) {
+    console.error('Erro ao buscar os niveis:', err);
     return []; 
   }
 });

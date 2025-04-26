@@ -179,3 +179,18 @@ thead{
     background-color: #fff;
     margin-right: 15px;
 }
+.valor input{
+    cursor: pointer;
+    margin-right: 30px;
+    padding: 12px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 6px;
+}
+#cad-user{
+    color: #fff;
+    outline: none;
+    border: 1px solid #ca6924;
+    background-color: #CA6924;
+    transition: .6s;
+    font-weight: bold;
+}

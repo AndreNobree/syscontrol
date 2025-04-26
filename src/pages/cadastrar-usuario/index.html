@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuários</title>
+  <title>Cadastrar Usuário</title>
   <link rel="stylesheet" href="styles.css">
   
 </head>
@@ -33,34 +33,40 @@
             </div>
         </div>
         <div class="menu-intermediario">
-            <div class="titulo">
-                <h1>Usuários Ativos:</h1>
-            </div>
-            <div class="valor" id="valor">
-                <input type="button" value="Cadastrar Usuário" id="cad-user"> 
-            </div>
-            
+            <input type="button" value="< VOLTAR" id="btn-voltar">
         </div>
 
-        <div class="div-table">
-            <div class="tabela">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Nível</th>
-                            <th>Cargo</th>
-                        </tr>
-                    </thead>
+        <div class="formulario">
+            <form id="addprod">
+                <div class="form-superior">
+                    <div class="">
+                        <label>Usuario:</label><br>
+                        <input type="text" id="nome"><br>
+                    </div>
+                    <div class="lateral">
+                        <label>Senha:</label><br>
+                        <input type="password" id="senha"><br>
+                    </div
+                    
+                </div>
 
-                    <tbody id="tabela-users">
-                    </tbody>
-                </table>
-            </div>
+                <div class="cargo">
+                    <label>Cargo:</label><br>
+                    <select name="filtro" id="filtro">
+                        <option value="">- Selecionar Cargo -</option>
+                    </select>
+                </div>
+                
+                <div id="error-message" style="color: red; display: none;"></div>
+                <div id="sucess-message" style="color: green; display: none;"></div>
+                
+                
+            </form>
+        </div>
+        <div class="botoes-acao">
+            <input type="button" value="Cadastrar Usuário" id="botao-editar">
         </div>
     </div>
-
     <script src="renderer.js"></script>
                   
 </body>
