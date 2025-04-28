@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const dbClient = require('./db');  
+const bcrypt = require('bcrypt');
 
 let mainWindow;
 
@@ -25,16 +26,27 @@ function createWindow() {
 
 ipcMain.handle('verify-login', async (event, { username, password }) => {
   try {
-    
-    const res = await dbClient.query('SELECT * FROM users WHERE usuario = $1 AND senha = $2', [username, password]);
+    // Busca apenas pelo nome de usuário
+    const res = await dbClient.query('SELECT * FROM users WHERE usuario = $1', [username]);
 
-    if (res.rows.length > 0) {
-      usuarioLogado = res.rows[0].id;
-      nomeUsuarioLogado = username
-      return { success: true };  
-    } else {
-      return { success: false, message: 'Usuário ou senha incorretos' };  
+    if (res.rows.length === 0) {
+      console.log('Usuário não encontrado!');
+      return { success: false, message: 'Usuário ou senha incorretos' };
     }
+
+    const user = res.rows[0];
+
+    const senhaCorreta = await bcrypt.compare(password, user.senha.trim());
+
+    if (senhaCorreta) {
+      usuarioLogado = user.id;
+      nomeUsuarioLogado = username;
+      return { success: true };
+    } else {
+      console.log('Senha não bateu.');
+      return { success: false, message: 'Usuário ou senha incorretos' };
+    }
+    
   } catch (err) {
     console.error('Erro ao verificar login:', err);
     return { success: false, message: 'Erro ao verificar login' };
@@ -78,8 +90,10 @@ ipcMain.handle('getUsersById', async (event, userId) => {
 
 ipcMain.handle('update-users', async (event, { nome, senha, cargo, userId }) => {
   try {
+    const saltRounds = 10; // Nível de segurança (padrão é 10)
+    const hashedPassword = await bcrypt.hash(senha, saltRounds);
 
-    const res3 = await dbClient.query('UPDATE users SET usuario = $1, senha = $2, idnivel = $3 where id = $4', [nome, senha, cargo, userId]);
+    const res3 = await dbClient.query('UPDATE users SET usuario = $1, senha = $2, idnivel = $3 where id = $4', [nome, hashedPassword, cargo, userId]);
 
     if (res3.rows.length > 0) {
       return { success: true };  
@@ -94,14 +108,18 @@ ipcMain.handle('update-users', async (event, { nome, senha, cargo, userId }) => 
 
 ipcMain.handle('insert-users', async (event, { nome, senha, cargo }) => {
   try {
+    // Gera o hash da senha antes de salvar
+    const saltRounds = 10; // Nível de segurança (padrão é 10)
+    const hashedPassword = await bcrypt.hash(senha, saltRounds);
 
-    const res3 = await dbClient.query('INSERT INTO users (usuario, senha, idnivel) values ($1, $2, $3)', [nome, senha, cargo]);
+    // Agora salva o hash no lugar da senha original
+    const res3 = await dbClient.query(
+      'INSERT INTO users (usuario, senha, idnivel) values ($1, $2, $3)',
+      [nome, hashedPassword, cargo]
+    );
 
-    if (res3.rows.length > 0) {
-      return { success: true };  
-    } else {
-      return { success: false, message: 'Falha ao fazer insert no banco de dados' };  
-    }
+    return { success: true };
+
   } catch (err) {
     console.error('Erro ao fazer insert no banco:', err);
     return { success: false, message: 'Erro ao fazer insert no banco' };

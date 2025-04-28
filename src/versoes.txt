@@ -33,10 +33,11 @@ Crie uma transição fácil entre os planos, com a possibilidade de upgrade sem 
 Avalie o mercado: Aplique a estratégia levando em consideração a concorrência e os preços praticados por outros sistemas semelhantes. Isso pode ajudar a posicionar o seu produto de forma mais competitiva.
 
 Exemplo:
-Basic: 1 usuário, funcionalidades básicas, acesso ao suporte via chat online.
-Plus: Até 5 usuários, integrações básicas, relatórios avançados, suporte via e-mail e chat.
+Basic: 1 usuário, funcionalidades básicas (estoque e pdv), acesso ao suporte via email e resposta até 48 horas.
+Plus: usuários ilimitados, acesso completo ao sistema, relatórios avançados, suporte via e-mail e whatsapp e resposta até 12 horas.
 Premium: Usuários ilimitados, todas as integrações e funcionalidades, suporte prioritário 24/7, funcionalidades exclusivas de inteligência artificial e automações.
 Esse modelo é bastante utilizado em muitos softwares como serviço (SaaS) justamente por proporcionar flexibilidade e facilitar o crescimento tanto para os clientes quanto para a própria empresa fornecedora.
 
 
 
+instalar o bcrypt

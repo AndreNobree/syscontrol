@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    
       
     } catch (error) {
-      console.error('Erro ao carregar o produto:', error);
+      console.error('Erro ao carregar o usuario:', error);
     }
 })
 
