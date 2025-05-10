@@ -14,7 +14,12 @@ menuPng.addEventListener('click', () => {
 document.getElementById('btn-voltar').addEventListener('click', async () => {
     window.location.href = '../cliente-fornecedor/index.html'
 })
-
+document.addEventListener('DOMContentLoaded', async () => { 
+  
+    const nomeUsuarioLogado = await window.electron.getUsuario();
+    const nomeUser = document.getElementById("nome-user");
+    nomeUser.innerHTML = nomeUsuarioLogado;
+  })
 document.getElementById('botao-cadastro').addEventListener('click', async () => {
     const nome = document.getElementById('nome').value.trim();
     const celular = document.getElementById('celular').value;

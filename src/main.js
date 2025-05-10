@@ -126,6 +126,38 @@ ipcMain.handle('insert-users', async (event, { nome, senha, cargo }) => {
   }
 });
 
+ipcMain.handle('insert-users2', async (event, { nome, senha }) => {
+  const cargo = 3
+  try {
+    // Verifica se já existe um usuário com idnivel = 3
+    const { rows } = await dbClient.query(
+      'SELECT 1 FROM users WHERE idnivel = $1 LIMIT 1',
+      [cargo]
+    );
+
+    if (rows.length > 0) {
+      // Já existe um usuário com cargo 3
+      return { success: false, message: 'Já existe um usuário com o cargo 3.' };
+    }
+
+    // Gera o hash da senha
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(senha, saltRounds);
+
+    // Insere o novo usuário
+    await dbClient.query(
+      'INSERT INTO users (usuario, senha, idnivel) VALUES ($1, $2, $3)',
+      [nome, hashedPassword, cargo]
+    );
+
+    return { success: true };
+  } catch (err) {
+    console.error('Erro ao inserir usuário:', err);
+    return { success: false, message: 'Erro ao inserir usuário no banco.' };
+  }
+});
+
+
 ipcMain.handle('get-niveis', async () => {
   try {
     const res = await dbClient.query('SELECT * FROM niveis');  
@@ -363,9 +395,9 @@ ipcMain.handle('insert-relatorio-delete-caixa', async (event, {pagamento, total}
 
   try {
       const data = new Date(); // isso pegará a data atual
-      let cliente = 1
+      
 
-      const insetRelarorio = await dbClient.query('INSERT INTO relatoriovenda (id_usuario, id_cliente, data_venda, total, forma_pagamento) VALUES ($1, $2, $3, $4, $5)', [usuarioLogado, cliente, data, total, pagamento]);
+      const insetRelarorio = await dbClient.query('INSERT INTO relatoriovenda (id_usuario, data_venda, total, forma_pagamento) VALUES ($1, $2, $3, $4)', [usuarioLogado, data, total, pagamento]);
       
       const deleteCaixa = await dbClient.query('DELETE FROM caixa WHERE idUser = $1', [usuarioLogado]);
       

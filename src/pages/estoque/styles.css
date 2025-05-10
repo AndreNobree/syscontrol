@@ -121,6 +121,12 @@
     background-color: #CA6924;
     display: flex;
 }
+.btn-info p{
+    font-family: 'Poppins', sans-serif;
+    margin-right: 10px;
+    background-color: #CA6924;
+    color: #fff;
+}
 .menu-intermediario{
     margin-top: 50px;
     display: flex;

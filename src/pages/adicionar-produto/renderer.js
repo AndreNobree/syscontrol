@@ -17,6 +17,10 @@ document.getElementById('btn-voltar').addEventListener('click', async () => {
 
 document.addEventListener('DOMContentLoaded', async () => { 
     try {
+      const nomeUsuarioLogado = await window.electron.getUsuario();
+      const nomeUser = document.getElementById("nome-user");
+      nomeUser.innerHTML = nomeUsuarioLogado;
+    
       const categorias = await window.electron.getCategorias();
 
       const select = document.querySelector('select');

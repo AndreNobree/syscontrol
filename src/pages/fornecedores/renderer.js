@@ -12,6 +12,10 @@ menuPng.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const nomeUsuarioLogado = await window.electron.getUsuario();
+  const nomeUser = document.getElementById("nome-user");
+  nomeUser.innerHTML = nomeUsuarioLogado;
+
   const fornecedor = await window.electron.getFornecedor();
 
   const tabela = document.getElementById("tabela-fornecedor");

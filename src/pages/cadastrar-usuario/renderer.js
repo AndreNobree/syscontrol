@@ -14,6 +14,10 @@ menuPng.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', async () => {
     
     try {
+      const nomeUsuarioLogado = await window.electron.getUsuario();
+      const nomeUser = document.getElementById("nome-user");
+      nomeUser.innerHTML = nomeUsuarioLogado;
+    
 
       const niveis = await window.electron.getNiveis();
 

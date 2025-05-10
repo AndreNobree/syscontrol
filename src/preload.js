@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld('electron', {
   getUserById: (userId) => ipcRenderer.invoke('getUsersById', userId),
   updateEditUser: (nome, senha, cargo, userId) => ipcRenderer.invoke('update-users', { nome, senha, cargo, userId }),
   addUser: (nome, senha, cargo) => ipcRenderer.invoke('insert-users', { nome, senha, cargo }),
+  addUser2: (nome, senha) => ipcRenderer.invoke('insert-users2', { nome, senha }),
   getNiveis: () => ipcRenderer.invoke('get-niveis'),
   getProducts: (categoriaId, filtroNome) => ipcRenderer.invoke('get-products', categoriaId, filtroNome),
   getCategorias: () => ipcRenderer.invoke('get-categorias'),

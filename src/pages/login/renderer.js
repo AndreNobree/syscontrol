@@ -34,3 +34,4 @@ document.getElementById('login-button').addEventListener('click', async () => {
     errorMessageDiv.textContent = 'Erro ao tentar fazer login. Tente novamente.';
   }
 });
+
