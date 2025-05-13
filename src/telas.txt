@@ -1,4 +1,4 @@
-1. Tela de Login/Autenticação [1, 2]
+1. Tela de Login/Autenticação [1, 2, 3]
 Objetivo: Garantir que apenas usuários autorizados acessem o sistema.
 Funcionalidades: Login com nome de usuário e senha, controle de permissões (administrador, operador, etc.).
 

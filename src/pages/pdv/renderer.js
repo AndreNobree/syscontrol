@@ -234,15 +234,15 @@ window.addEventListener('click', function(event) {
 });
 
 //verifica o numero de caracteres do input
-// input.addEventListener('input', function() {
-//   // Verifica a quantidade de caracteres no valor do input
-//   if (input.value.length > 10) {
-//     const finalizaBotao = document.getElementById('add-item');
-//     if (finalizaBotao) {
-//       alert('teste')  // Simula o clique do botão
-//     }
-//   }
-// });
+input.addEventListener('input', function() {
+  // Verifica a quantidade de caracteres no valor do input
+  if (input.value.length > 12) {
+    const input = document.getElementById('quantidade');
+    if (input) {
+      input.focus();
+    }
+  }
+});
 
 //adiciona item caixa
 document.getElementById('add-item').addEventListener('click', async () => {

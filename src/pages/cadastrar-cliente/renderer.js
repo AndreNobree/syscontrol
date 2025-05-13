@@ -19,7 +19,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nomeUsuarioLogado = await window.electron.getUsuario();
     const nomeUser = document.getElementById("nome-user");
     nomeUser.innerHTML = nomeUsuarioLogado;
-  })
+})
+
+document.querySelectorAll('.cpf').forEach(input => {
+  input.addEventListener('input', function () {
+    let value = this.value.replace(/\D/g, '');
+
+    if (value.length > 11) value = value.slice(0, 11);
+
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    this.value = value;
+  });
+});
+document.querySelectorAll('.celular').forEach(input => {
+  input.addEventListener('input', function () {
+    let value = this.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+    value = value.replace(/(\d{5})(\d)/, '$1-$2');
+    this.value = value;
+  });
+});
+
+document.querySelectorAll('.cep').forEach(input => {
+  input.addEventListener('input', function () {
+    let value = this.value.replace(/\D/g, '');
+    if (value.length > 8) value = value.slice(0, 8);
+    value = value.replace(/(\d{5})(\d)/, '$1-$2');
+    this.value = value;
+  });
+});
+
 document.getElementById('botao-cadastro').addEventListener('click', async () => {
     const nome = document.getElementById('nome').value.trim();
     const celular = document.getElementById('celular').value;
