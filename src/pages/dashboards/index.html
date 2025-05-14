@@ -53,9 +53,58 @@
             </div>
             <div class="dashboards">
                 <div class="three-top-cards-dash">
-                    <div class="top-cards-dash">Numero de vendas de hj</div>
-                    <div class="top-cards-dash">Faturamento de hj</div>
-                    <div class="top-cards-dash">Lucro de hj</div>
+                    <div class="top-cards-dash">
+                        <div class="block-png">
+                            <img src="../../../media/bolsa-de-compras.png" id="compras-png">
+                        </div>
+                        <div class="block-info">
+                            <p>Total de Vendas</p>
+                            <p id="quantidade-vendas"></p>
+                            <p>Últimos 60 dias</p>
+                        </div>
+                    </div>
+
+                    <div class="top-cards-dash">
+                         <div class="block-png">
+                            <img src="../../../media/estatisticas.png" id="compras-png">
+                        </div>
+                        <div class="block-info">
+                            <p>Faturamento</p>
+                            <p id="total-faturamento">R$</p>
+                            <p>Últimos 60 dias</p>
+                        </div>
+                    </div>
+
+                    <div class="top-cards-dash">
+                        <div class="block-png">
+                            <img src="../../../media/dolar.png" id="compras-png">
+                        </div>
+                        <div class="block-info">
+                            <p>Lucro</p>
+                            <p id="total-vendas">R$200,00</p>
+                            <p>Últimos 60 dias</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="title-dash">
+                    <p>Entradas e Saídas de Produtos</p>
+                </div>
+
+                <div class="card-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Tipo</th>
+                                <th>Total</th>
+                                <th>Dia/Hora</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabela-relatorio">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

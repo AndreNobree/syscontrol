@@ -26,6 +26,8 @@ contextBridge.exposeInMainWorld('electron', {
   getFornecedor: () => ipcRenderer.invoke('get-fornecedor'),
   addFornecedor: (nome, telefone, cnpj, email, cep, endereco) => ipcRenderer.invoke('insert-fornecedor', { nome, telefone, cnpj, email, cep, endereco }),
   addCliente: (nome, celular, cpf_cnpj, email, cep, endereco, complemento) => ipcRenderer.invoke('insert-cliente', { nome, celular, cpf_cnpj, email, cep, endereco, complemento }),
+  getFaturamento: () => ipcRenderer.invoke('get-faturmaento'),
+  getQuantidadeVendas: () => ipcRenderer.invoke('get-quantidade-vendas'),
 });
 
 

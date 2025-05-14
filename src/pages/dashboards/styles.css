@@ -145,7 +145,7 @@
     justify-content: space-between;
 }
 .btn-dash{
-    margin-top: 60px;
+    margin-top: 40px;
     width: 15%;
     height: 100%;
     background-color: #ca6924;
@@ -173,7 +173,7 @@
     border: none;
 }
 .dashboards{
-    margin-top:60px;
+    margin-top:40px;
     width: 82%;
     border-radius: 10px;
 }
@@ -185,5 +185,65 @@
 .top-cards-dash{
     width: 33%;
     height: 200px;
-    background-color: #b96225;
+    background-color: #CA6924;
+    border-radius: 20px;
+    color: #fff;
+}
+#compras-png{
+    background-color: #CA6924;
+    width: 60px;
+    height: 60px;
+}
+.block-png{
+    margin-top: 20px;
+    margin-left:30px;
+    background-color: #CA6924;
+    display: flex;
+    justify-content: start;
+}
+.block-info{
+    margin-top: 10px;
+    margin-left: 30px;
+    background-color: #CA6924;
+    
+}
+.block-info p{
+    margin-top: 8px;
+    background-color: #CA6924;
+    font-family: 'Poppins', sans-serif;
+}
+#total-vendas, #total-faturamento, #quantidade-vendas{
+    font-weight: bold;
+    font-size: 24px;
+}
+.title-dash{
+    margin-top: 10px;
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+}
+.card-table{
+    margin-top: 10px;
+    width: 100%;
+    height: 250px;
+    background-color: #fff;
+    border-radius: 0 0 20px 20px;
+    border: rgb(212, 212, 212) solid 1px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+thead{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f3f3f3;
+    font-weight: bold;
+    color: #CA6924;
 }

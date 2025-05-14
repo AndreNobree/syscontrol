@@ -16,4 +16,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nomeUsuarioLogado = await window.electron.getUsuario();
     const nomeUser = document.getElementById("nome-user");
     nomeUser.innerHTML = nomeUsuarioLogado;
+
+    const faturamentoDias = await window.electron.getFaturamento();
+    const tagFaturamento = document.getElementById("total-faturamento");
+    tagFaturamento.innerHTML = "R$"+faturamentoDias;
+
+    const getQuantidadeVendas = await window.electron.getQuantidadeVendas();
+    const tagQuantidadeVendas = document.getElementById("quantidade-vendas");
+    tagQuantidadeVendas.innerHTML = getQuantidadeVendas+" Realizadas";
+    
+    
 })

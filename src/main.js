@@ -260,7 +260,8 @@ ipcMain.handle('get-produtos-select', async () => {
 
 ipcMain.handle('insert-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor }) => {
   try {
-    const res = await dbClient.query('INSERT INTO produtos (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor]);
+    const data = new Date();
+    const res = await dbClient.query('INSERT INTO produtos (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, dataalteracao) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, data]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -293,9 +294,9 @@ ipcMain.handle('getProductById', async (event, productId) => {
 
 ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }) => {
   try {
-    
+    const data = new Date();
     console.log(codigo)
-    const res = await dbClient.query('UPDATE produtos SET codigo = $1, idcat = $2, preco = $3, quantidade = $4, desconto = $5, produto = $6 WHERE id = $7', [codigo, idcat, preco, quantidade, desconto, produto, idRegistro]);
+    const res = await dbClient.query('UPDATE produtos SET codigo = $1, idcat = $2, preco = $3, quantidade = $4, desconto = $5, produto = $6, datalteracao = $7 WHERE id = $8', [codigo, idcat, preco, quantidade, desconto, produto, data, idRegistro]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -311,6 +312,7 @@ ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco,
 
 ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidade}) => {
   try {
+    const data = new Date();
     // Substitua esta consulta com a consulta real ao seu banco de dados
     const result = await dbClient.query('SELECT * FROM produtos WHERE codigo = $1 AND quantidade >= $2', [codigo, quantidade]);
 
@@ -326,9 +328,12 @@ ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidad
       let preco = result.rows[0].preco
       let desconto = result.rows[0].desconto
       let quantidadeProd = result.rows[0].quantidade
+      let precocompra = result.rows[0].precocompra
       let total = 0
       let precodesc = 0
       quantidadeProd = quantidadeProd - quantidade
+
+      let lucro = preco - precocompra
 
       if (desconto != "") {
         let descontoItem = parseFloat(desconto); // Converte o desconto para número
@@ -345,9 +350,10 @@ ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidad
       }
       
       const insetCaixa = await dbClient.query('INSERT INTO caixa (iduser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [idUser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total]);
+      const insetLucro = await dbClient.query('INSERT INTO lucrosvenda (id_usuario, data_venda, lucro, id_produto) VALUES ($1, $2, $3, $4)', [idUser, data, lucro, idproduto]);
       const updateProd = await dbClient.query('UPDATE produtos SET quantidade = $1 WHERE codigo = $2', [quantidadeProd, codigo]);
       
-      if (insetCaixa.rows.length > 0 && updateProd.rows.length > 0) {
+      if (insetCaixa.rows.length > 0 && updateProd.rows.length > 0 && insetLucro.rows.length > 0) {
         return { success: true };  
       } else {
         return { success: false, message: 'Falha ao fazer insert-update da acao de inserir dados no caixa e atualização de quantidade' };  
@@ -377,8 +383,19 @@ ipcMain.handle('get-caixa', async () => {
 });
 
 ipcMain.handle('delete-caixa', async (event, caixaId) => {
+  
   try {
+    const query2 = await dbClient.query('SELECT * FROM caixa WHERE id = $1', [caixaId]);
+    let idproduto = query2.rows[0].idproduto
+    let quantidade1 = query2.rows[0].quantidade
+    const query4 = await dbClient.query('SELECT * FROM produtos WHERE id = $1', [idproduto]);
+    let quantidade2 = query4.rows[0].quantidade
+    let quantidade = quantidade2 + quantidade1
+    const positivo = Math.abs(quantidade);
+
     const query = await dbClient.query('DELETE FROM caixa WHERE id = $1', [caixaId]);
+    const query3 = await dbClient.query('UPDATE produtos SET quantidade = $1 WHERE id = $2', [positivo,idproduto]);
+    const query5 = await dbClient.query('DELETE FROM lucrosvenda WHERE id_produto = $1', [idproduto]);
     if (res.rowCount > 0) {
       return { success: true };  // Retorna sucesso
     } else {
@@ -542,6 +559,38 @@ ipcMain.handle('insert-fornecedor', async (event, { nome, telefone, cnpj, email,
     return { success: false, message: 'Erro ao fazer insert no banco' };
   }
 });
+
+//relatorios
+ipcMain.handle('get-faturmaento', async () => {
+  try {
+    const result = await dbClient.query(`
+      SELECT COALESCE(SUM(total), 0) AS total_vendas
+      FROM relatoriovenda
+      WHERE data_venda >= NOW() - INTERVAL '60 days';
+    `);
+
+    return result.rows[0].total_vendas;
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
+ipcMain.handle('get-quantidade-vendas', async () => {
+  try {
+    const result = await dbClient.query(`
+      SELECT COUNT(*) AS quantidade
+      FROM relatoriovenda
+      WHERE data_venda >= NOW() - INTERVAL '60 days';
+    `);
+
+    // PostgreSQL pode retornar COUNT como string, então convertemos para número
+    return parseInt(result.rows[0].quantidade, 10);
+  } catch (err) {
+    console.error('Erro ao contar vendas:', err);
+    throw new Error('Erro ao contar vendas');
+  }
+});
+
 
 
 app.whenReady().then(createWindow);

@@ -22,7 +22,8 @@ CREATE TABLE produtos (
     precocompra NUMERIC,
     idfornecedor VARCHAR(255),
     garantia INTEGER,
-    comissao VARCHAR(255)
+    comissao VARCHAR(255),
+    dataalteracao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -115,4 +116,12 @@ CREATE TABLE relatoriovenda (
     data_venda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     total NUMERIC NOT NULL,                              
     forma_pagamento VARCHAR(255)
+);
+
+CREATE TABLE lucrosvenda (
+  id SERIAL PRIMARY KEY,
+  id_cliente INTEGER NOT NULL,
+  id_usuario INTEGER NOT NULL,
+  data_venda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  lucro NUMERIC(10, 2) NOT NULL
 );
