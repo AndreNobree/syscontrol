@@ -1,0 +1,69 @@
+<!-- essa tela vai mostrar apenas as vendas realizadas da tabela relatoriosvenda -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <div class="menu-lateral">
+        <ul>
+            <li><a href="../dashboards/index.html">Dashboards</a></li>
+            <li><a href="../pdv/index.html">PDV</a></li>
+            <li><a href="../estoque/index.html">Estoque</a></li>
+            <li><a href="../cliente-fornecedor/index.html">Clientes & Fornecedores</a></li>
+            <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
+            <li><a href="../usuarios/index.html">Usuários</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+
+    <div class="home">
+        <div class="menu-superior">
+            <div class="nome-sistema">
+                <img src="../../../media/pngwing.com (2).png" id="menu-png">
+                <h4>Syscontrol</h4>
+            </div>
+            <div></div>
+            <div class="btn-info">
+                <p id="nome-user"></p>
+                <img src="../../../media/pngwing.com (1).png" id="logout-png">
+            </div>
+        </div>
+        <div class="menu-intermediario">
+            <div class="titulo">
+                <h1>Vendas de hoje:</h1>
+            </div>
+            <div class="valor" id="valor"></div>
+            
+        </div>
+
+        <div class="div-table">
+            <div class="tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Pagamento</th>
+                            <th>Dia/Hora</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabela-relatorio">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="renderer.js"></script>
+                  
+</body>
+</html>

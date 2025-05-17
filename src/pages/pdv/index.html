@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDV</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <div class="menu-lateral">
+        <ul>
+            <li><a href="../dashboards/index.html">Dashboards</a></li>
+            <li><a href="../pdv/index.html">PDV</a></li>
+            <li><a href="../estoque/index.html">Estoque</a></li>
+            <li><a href="../cliente-fornecedor/index.html">Clientes & Fornecedores</a></li>
+            <li><a href="../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
+            <li><a href="../usuarios/index.html">Usuários</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+
+    <div class="home">
+        <div class="menu-superior">
+            <div class="nome-sistema">
+                <img src="../../../media/pngwing.com (2).png" id="menu-png">
+                <h4>Syscontrol</h4>
+            </div>
+            <div></div>
+            <div class="btn-info">
+                <p id="nome-user"></p>
+                <img src="../../../media/pngwing.com (1).png" id="logout-png">
+            </div>
+        </div>
+
+        <div class="pdv">
+            <div class="form-produtos"> 
+                <form action="">
+                    <div class="sit-caixa">
+                        <p> CAIXA ABERTO</p>
+                    </div>
+                    
+                    <div class="inputs-superior">
+                        <div class="codigo">
+                            <label for="">Código:</label><br>
+                            <input type="text" id="codigo">
+                        </div>
+                        <div class="codigo-produto">
+                            <label for="">Quantidade:</label><br>
+                            <input type="number" class="quantid" id="quantidade">
+                        </div>
+                    </div>
+                    
+                    <div id="error-message" style="color: red; display: none;">Campo Código e Quantidade são Obrigatórios</div>
+
+                    <div class="inputs-intermediario">
+                        <div class="nome-produto">
+                            <label for="">Pesquisar Produto:</label><br>
+                            <input type="text" id="searchInput" placeholder="Pesquise aqui...">
+                            <div id="dropdownList" class="dropdown-content">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="inputs-superior">
+                        <div class="precos">
+                            <label for="">Preço Unitário:</label><br>
+                            <input type="text" disabled class="desativado" id="preco-unit">
+                        </div>
+                        <div class="precos2">
+                            <label for="">Desconto:</label><br>
+                            <input type="text" disabled class="desativado" id="desconto">
+                        </div>
+                    </div>
+
+                    <div class="inputs-superior">
+                        <div class="inputs-acao">
+                            <input type="button" value="Adicionar Item" id="add-item" class="add-item">
+                            <input type="button" value="Remover Item" id="delete-item" class="delete-item">
+                        </div>
+                    </div>
+        
+                    <div class="subtotal">
+                        <h2>Subtotal:</h2>
+                        <div class="valor-subtotal"><h4>R$ 0,00</h4></div>
+                    </div>
+
+                    <div class="div-botao">
+                        <input type="button" value="Finalizar compra" class="div-finalizacao" id="finalizar-compra">
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="info-produtos">
+                <table id="tabela-caixa">
+                    <thead>
+                        <tr>
+                            <th class="quantidade">Quant.</th>
+                            <th class="nome">Nome</th>
+                            <th class="preco">Unit.</th>
+                            <th class="desconto">% Desc. item</th>
+                            <th class="precodesconto">% Unit Desc.</th>
+                            <th class="codigo">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Popup da Tabela -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                
+                <h2>Deseja remover algum item da lista?</h2>
+                <table id="tabela-popup">
+                    <thead>
+                        <tr>
+                            <th class="id"></th>
+                            <th class="quantidade">Quant.</th>
+                            <th class="nome">Nome</th>
+                            <th class="preco">Unit.</th>
+                            <th class="desconto">% Desc. item</th>
+                            <th class="precodesconto">% Unit. Desc.</th>
+                            <th class="codigo">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <input type="button" id="close-btn" value="Fechar" class="fechar-popup">
+            </div>
+        </div>
+        <!--popup de finalizar pagamento-->
+        <div id="popup2" class="popup2">
+            <div class="popup2-content">
+                <h2>Método de Pagamento:</h2>
+                <div class="met-pagamentos">
+                    <input type="button" id="dinheiro" value="Dinheiro" class="input-pag">
+                    <input type="button" id="pix" value="Pix" class="input-pag">
+                    <input type="button" id="credito" value="Cartão de Crédito" class="input-pag">
+                    <input type="button" id="debito" value="Cartão de Débito" class="input-pag">
+                </div>
+                
+                <input type="button" id="close-btn2" value="Fechar" class="fechar-popup">
+            </div>
+        </div>
+        <!--popup de finalizar pagamento-->
+        <div id="popup3" class="popup2">
+            <div class="popup3-content">
+                <h2>Descontos dessa venda:</h2>
+                    <table id="tabela-popup3">
+                        <thead>
+                            <tr>
+                                <th class="nome">Produto</th>
+                                <th class="desconto">Desconto</th>
+                                <th class="codigo">Valor</th>
+                                <th class="preco">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                <input type="button" id="close-btn3" value="Fechar" class="fechar-popup">
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="teclas-atalhos">
+        <p>F2 - Finaliza Compra</p>
+        <p>F3 - Ver Descontos da Venda</p>
+        <p>F4 - Remover Item</p>
+        <p>Insert - Adiciona Produto</p>
+    </div>
+        
+    <script src="renderer.js"></script>
+                  
+</body>
+</html>

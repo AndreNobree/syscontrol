@@ -1,0 +1,101 @@
+1. Tela de Login/Autenticação [1, 2, 3]
+Objetivo: Garantir que apenas usuários autorizados acessem o sistema.
+Funcionalidades: Login com nome de usuário e senha, controle de permissões (administrador, operador, etc.).
+
+2. Tela de Dashboard (Visão Geral)[2, 3]
+Objetivo: Apresentar uma visão geral do status do estoque, vendas, alertas e métricas chave.
+Funcionalidades: Gráficos de vendas, indicadores de estoque baixo, movimentação recente de produtos, relatórios rápidos.
+
+3. Tela de Cadastro de Produtos[2, 3]
+Objetivo: Cadastrar, editar ou excluir produtos no sistema.
+Funcionalidades: Nome do produto, código de barras, descrição, preço, categoria, quantidade em estoque, fornecedor, entre outros.
+
+4. Tela de Movimentação de Estoque[2, 3]
+Objetivo: Controlar a entrada e saída de produtos no estoque.
+Funcionalidades: Registro de compras (entrada de estoque) e vendas (saída de estoque), transferências entre depósitos, ajustes manuais de quantidade, relatórios de movimentação.
+
+5. Tela de PDV (Ponto de Venda)[1, 2, 3]
+Objetivo: Facilitar as transações de vendas de forma rápida e eficiente.
+Funcionalidades:
+Scanner de código de barras para adicionar produtos ao carrinho.
+Busca por nome ou código de produto.
+Exibição de itens no carrinho, quantidade, preço e total.
+Aplicação de descontos ou cupons.
+Métodos de pagamento (dinheiro, cartão, etc.).
+Finalização da venda com emissão de nota fiscal ou recibo.
+Opção de abrir/fechar caixa.
+
+6. Tela de Relatórios[3]
+Objetivo: Fornecer relatórios detalhados sobre vendas, estoque e finanças.
+Funcionalidades: Relatórios de vendas por período, relatório de estoque atual, inventário, margem de lucro, compras realizadas, vendas por funcionário, etc.
+
+7. Tela de Consulta de Estoque[2, 3]
+Objetivo: Permitir que os usuários visualizem as quantidades de produtos em estoque.
+Funcionalidades: Filtros por categoria, fornecedor, produtos com estoque baixo, pesquisa por nome ou código, histórico de vendas.
+
+8. Tela de Compras/Fornecedores[2, 3]
+Objetivo: Controlar as compras feitas aos fornecedores e os pedidos de reposição de estoque.
+Funcionalidades: Cadastro de fornecedores, lista de compras realizadas, status de pedidos, previsões de entrega, geração de pedidos para reposição.
+
+9. Tela de Ajustes de Estoque[2, 3]
+Objetivo: Permitir ajustes manuais de inventário, como correções de contagem ou devoluções de produtos.
+Funcionalidades: Adicionar ou remover unidades de produtos, justificativas para o ajuste, geração de relatório de ajustes.
+
+10. Tela de Administração de Usuários[3]
+Objetivo: Gerenciar acessos e permissões de usuários do sistema.
+Funcionalidades: Cadastro e edição de usuários, definição de permissões, login e logout, reset de senhas.
+
+11. Tela de Configurações do Sistema[2, 3]
+Objetivo: Permitir que o administrador configure aspectos gerais do sistema.
+Funcionalidades: Configuração de parâmetros fiscais (impostos, CNPJ), layout de recibos, opções de pagamento, e-mail de notificações, integração com sistemas de contabilidade, entre outros.
+
+
+Menu Lateral (Sidebar)
+Para um sistema com várias seções como o seu, o menu lateral é uma das opções mais eficientes. Ele oferece uma navegação clara e acessível, e ainda pode ser organizado de forma hierárquica, o que é ideal para manter tudo organizado conforme o sistema cresce.
+
+Estrutura do Menu Lateral (Exemplo):
+
+Dashboard
+PDV
+Estoque
+Cadastro de Produtos
+Movimentação de Estoque
+Consulta de Estoque
+Ajustes de Estoque
+Compras & Fornecedores
+Compras/Fornecedores
+Ajustes de Estoque
+Relatórios
+Relatório de Vendas
+Relatório de Estoque
+Relatório de Compras
+Usuários e Administração
+Administração de Usuários
+Configurações do Sistema
+Vantagens:
+
+Organização Hierárquica: O menu pode ser organizado por módulos, com submenus para páginas relacionadas, como as telas de estoque e relatórios.
+Acessibilidade: As principais funcionalidades como PDV e Dashboard podem ficar sempre acessíveis, enquanto outras mais administrativas (como Administração de Usuários e Configurações) ficam no fundo, mas ainda fáceis de alcançar.
+Facilidade de Escalabilidade: Se você precisar adicionar mais funcionalidades no futuro, o menu lateral pode ser facilmente expandido.
+2. Aba de Navegação Superior (Topbar)
+Você pode combinar o menu lateral com uma topbar para um conjunto de ações rápidas e essenciais. Isso funciona especialmente bem para coisas como login/logout, notificações ou até mesmo acesso rápido a configurações específicas.
+
+Itens na Topbar (Exemplo):
+
+Nome do usuário (com um menu de opções, como sair ou acessar perfil)
+Notificações (alertas de estoque baixo, vendas, etc.)
+Caixa (para ações rápidas no PDV)
+3. Página Inicial: Dashboard
+Na tela inicial (Dashboard), você pode apresentar um painel com as informações mais relevantes, como:
+
+Gráficos de Vendas
+Alertas de Estoque Baixo
+Indicadores Financeiros e de Performance
+Além disso, você pode incluir links rápidos para páginas de Relatórios, Estoque ou PDV, caso o usuário queira acessar essas áreas diretamente.
+
+4. Permissões de Acesso e Visibilidade
+Como o sistema terá diferentes perfis de usuários (administrador, operador, etc.), o layout da navegação deve refletir as permissões de cada tipo de usuário. Por exemplo:
+
+Administradores terão acesso a todas as páginas, incluindo Administração de Usuários e Configurações.
+Operadores podem ser limitados a funções como o PDV, consulta de estoque e movimentação.
+Isso pode ser controlado na lógica de exibição do menu, com diferentes visibilidades conforme o tipo de usuário.

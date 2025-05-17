@@ -1,0 +1,57 @@
+{
+  "name": "siscontrol",
+  "version": "1.1.0",
+  "main": "./src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.techsys.siscontrol",
+    "productName": "SisControl",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "build",
+        "to": "build",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": false,
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "./build/systech_custom_icon_w.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "include": "build/installer.nsh",
+      "allowElevation": true
+    }
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "pg": "^8.13.1",
+    "pg-promise": "^11.10.2"
+  }
+}

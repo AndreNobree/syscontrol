@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Poppins';
+    src: url('./fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+*{
+    margin: 0;
+    padding: 0;
+    background-color: #F3F6F8;
+}
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex; /* Usar flexbox para alinhar as divs lado a lado */
+    justify-content: center; /* Centralizar horizontalmente */
+    align-items: center; /* Centralizar verticalmente */
+}
+
+.app {
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 350px;
+    height: 440px;
+    border-radius: 24px;
+    background-color: #FF7F32;
+}
+form{
+    margin-top: 20px;
+    text-align: center;
+}
+label{
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+input{
+    cursor: pointer;
+    background-color: #F1F1F1;
+    border: 1px solid white;
+    outline: none;
+    padding: 6px;
+    width: 250px;
+    border-radius: 6px;
+}
+input:focus{
+    border: 1px solid #1A3A5B;
+}
+.card form, .card label{
+    background-color: #FF7F32;
+}
+
+.card-logo {
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#error-message {
+    color: #E74034;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: #FF7F32;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+  }
+.card a{
+    background-color: #FF7F32;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;    
+    width: 200px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.card p, .card u{
+    padding-top: 30px;
+    background-color: #FF7F32;
+}
+.cargo{
+    background-color: #FF7F32;
+}

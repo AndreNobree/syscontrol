@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="login">
+    <div class="app">
+      <div class="card">
+        <form id="login-form">
+          <label>Usuário:</label><br>
+          <input type="text" id="username" required><br><br>
+          <label>Senha:</label><br>
+          <input type="password" id="password" required><br><br>
+          <label>Telefone:</label><br>
+          <input type="text" id="telefone" required><br><br>
+          <label>Email:</label><br>
+          <input type="email" id="email" required><br><br>
+          
+          <input type="button" value="Cadastrar" id="login-button">
+          <a href="../login/index.html"><p><u>Voltar</u></p></a>
+          <div id="error-message" style="color: red; display: none;"></div>
+          <p style="color: red;">SÓ É POSSIVEL SALVAR APENAS UM USUÁRIO NESSA TELA!!</p>
+        </form>
+      </div>
+      <!-- Aqui está a área para exibir mensagens de erro -->
+      
+    </div>
+    <div class="card-logo">
+      <img src="../../../media/1-removebg-preview.png">
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
