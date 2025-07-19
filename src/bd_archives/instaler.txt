@@ -1,0 +1,42 @@
+!macro customInstall
+  ;==============================
+  ; Verifica se PostgreSQL já está instalado
+  ;==============================
+  IfFileExists "C:\Program Files\PostgreSQL\15\bin\psql.exe" 0 +2
+    Goto skip_pg_install
+
+  ;==============================
+  ; Instala PostgreSQL silenciosamente
+  ;==============================
+  SetOutPath "$TEMP"
+
+  ; Inclui os arquivos no pacote
+  File "${BUILD_RESOURCES_DIR}\postgresql-installer.exe"
+  File "${BUILD_RESOURCES_DIR}\init.sql"
+  File "${BUILD_RESOURCES_DIR}\pgadmin4.exe"
+
+  ; Instala PostgreSQL na porta 5433 com usuário postgres e senha postgres
+  ExecWait '"$TEMP\postgresql-installer.exe" --mode unattended --unattendedmodeui minimalWithDialogs --superpassword postgres --servicename "PostgreSQLSiscontrol" --serviceport 5433 --datadir "C:\PostgreSQLData"'
+
+  ; Aguarda o serviço iniciar
+  Sleep 10000
+
+  ; Executa script SQL para criar banco e tabelas
+  ExecWait 'cmd /C "set PGPASSWORD=postgres && \"C:\Program Files\PostgreSQL\15\bin\psql.exe\" -U postgres -p 5433 -f \"$TEMP\init.sql\""' 
+
+  ;==============================
+  ; Instalação opcional do pgAdmin
+  ;==============================
+  MessageBox MB_YESNO "Deseja instalar o pgAdmin (RECOMENDADO PARA O FUNCIONAMENTO)?" IDYES install_pgadmin IDNO skip_pgadmin
+
+  install_pgadmin:
+  ExecWait '"$TEMP\pgadmin4.exe" /SILENT'
+  Goto continue_install
+
+  skip_pgadmin:
+  ; (Não faz nada, só pula)
+
+  continue_install:
+
+  skip_pg_install:
+!macroend

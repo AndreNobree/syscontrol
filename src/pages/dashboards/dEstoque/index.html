@@ -1,0 +1,156 @@
+<!-- essa tela vai mostrar apenas as vendas realizadas da tabela relatoriosvenda -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboards de Estoque</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <div class="menu-lateral">
+        <ul>
+            <li><a href="../../dashboards/index.html">Dashboards</a></li>
+            <li><a href="../../pdv/index.html">PDV</a></li>
+            <li><a href="../../estoque/index.html">Estoque</a></li>
+            <li><a href="../../fornecedores/index.html">Clientes & Fornecedores</a></li>
+            <li><a href="../../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
+            <li><a href="../../usuarios/index.html">Usuários</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+
+    <div class="home">
+        <div class="menu-superior">
+            <div class="nome-sistema">
+                <img src="../../../../media/pngwing.com (2).png" id="menu-png">
+                <h4>Syscontrol</h4>
+            </div>
+            <div></div>
+            <div class="btn-info">
+                <p id="nome-user"></p>
+                <img src="../../../../media/pngwing.com (1).png" id="logout-png">
+            </div>
+        </div>
+        <div class="card-center">
+            <div class="btn-dash">
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-faturamento" value="Geral" id="geral">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-vendas" value="Vendas" id="vendas">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-estoque" value="Estoque" id="estoque">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-cliente" value="Clientes">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-fornecedores" value="Fornecedores">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-faturamento" value="Faturamento">
+                </div>
+            </div>
+
+            <div class="container-graficos">
+                <!-- valor total estoque -->
+                <div class="conteudo-top">
+                    <div class="valor-total-estoque">
+                        <div class="title1"><h2>Total em Estoque</h2></div>
+                        <div class="valores1" id="total-estoque"></div>
+                    </div>
+    
+                    <!-- quantidade de produtos vendidos -->
+                    <div class="quantidades-vendidos">
+                        <div class="title2"><h2>Quantidade de produtos vendidos no ano</h2></div>
+                        <div class="valores2" id="total-saida"></div>
+                    </div>
+                </div>
+
+                <div class="filtros-produtos">
+                    <div class="card-input">
+                        <select name="" id="">
+                            <option value="iu">option1</option>
+                            <option value="iu">option2</option>
+                            <option value="iu">option3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="conteudo-top">
+                    <div class="card-select-produto">
+                        <div class="title2"><h2>Movimentações</h2></div>
+                        <div class="" id="total-estoque"></div>
+                    </div>
+                </div>
+
+                <div class="conteudo-top">
+                    <div class="vinte-mais-transicoes">
+                        <div class="title2"><h2>10 Produtos mais movimentados dos últimos 30 dias</h2></div>
+                        <div class="" id="total-estoque"></div>
+                    </div>
+    
+                    <!-- quantidade de produtos vendidos -->
+                    <div class="vinte-mais-transicoes">
+                        <div class="title2"><h2>10 Produtos mais movimentados em um ano</h2></div>
+                        <div class="" id="total-saida"></div>
+                    </div>
+                </div>
+                <div class="conteudo-top">
+                    <div class="vinte-mais-transicoes">
+                        <div class="title2"><h2>10 Produtos menos movimentados dos últimos 30 dias</h2></div>
+                        <div class="" id="total-estoque"></div>
+                    </div>
+    
+                    <!-- quantidade de produtos vendidos -->
+                    <div class="vinte-mais-transicoes">
+                        <div class="title2"><h2>10 Produtos menos movimentados em um ano</h2></div>
+                        <div class="" id="total-saida"></div>
+                    </div>
+                </div>
+
+                <div class="conteudo-top">
+                    <div class="valor-total-estoque">
+                        <div class="title1"><h2>Produto mais Vendido</h2></div>
+                        <div class="valores1" id="total-estoque"></div>
+                    </div>
+    
+                    <!-- quantidade de produtos vendidos -->
+                    <div class="quantidades-vendidos">
+                        <div class="title3"><h2>Produto Menos Vendido</h2></div>
+                        <div class="valores3" id="total-saida"></div>
+                    </div>
+                </div>
+     
+                <!-- <div class="card-linha-horas">
+                <canvas id="grafico-linhas-horas"></canvas>
+                </div>
+
+            
+                <div class="card-barras-mes">
+                <canvas id="grafico-barras-mes"></canvas>
+                </div>
+
+              
+                <div class="card-pizza-pagamento">
+                <canvas id="grafico-pizza-pagamento"></canvas>
+                </div>
+
+                <div class="card-linha-horas">
+                <canvas id="grafico-linhas-sete-dias"></canvas>
+                </div> -->
+            </div>
+            
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
+<script>
+  setInterval(function() {
+    location.reload();
+  }, 120000); // 120.000 ms = 2 minutos
+</script>

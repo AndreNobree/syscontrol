@@ -40,7 +40,6 @@
       "allowElevation": true
     }
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -51,6 +50,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chart.js": "^4.5.0",
     "pg": "^8.13.1",
     "pg-promise": "^11.10.2"
   }

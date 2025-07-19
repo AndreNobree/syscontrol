@@ -1,0 +1,232 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../../../fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../../../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../../../fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #F3F6F8;
+  font-family: 'Poppins', sans-serif;
+}
+
+.menu-lateral {
+  width: 250px;
+  background-color: #CA6924;
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  padding-top: 20px;
+  transition: left 0.3s ease-in-out;
+  z-index: 2;
+}
+
+.menu-lateral-exibido {
+  left: 0;
+}
+
+.home {
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 0;
+  z-index: 1;
+}
+
+.menu-lateral ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.menu-lateral ul li {
+  padding-bottom: 10px;
+  text-align: left;
+  background-color: #CA6924;
+}
+
+.menu-lateral ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  background-color: #CA6924;
+  padding: 8px;
+}
+
+.menu-lateral ul li a:hover {
+  background-color: #b96225;
+}
+
+.home.menu-lateral-aberto {
+  margin-left: 250px;
+}
+
+.menu-superior {
+  width: 100%;
+  height: 55px;
+  background-color: #CA6924;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nome-sistema {
+  color: #fff;
+  background-color: #CA6924;
+  display: flex;
+}
+
+.nome-sistema h4 {
+  margin-left: 10px;
+  background-color: #CA6924;
+}
+
+.nome-sistema img {
+  margin-left: 30px;
+}
+
+#logout-png, #user-png, #menu-png {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-color: #CA6924;
+  margin-right: 15px;
+}
+
+.btn-info {
+  margin-right: 20px;
+  background-color: #CA6924;
+  display: flex;
+}
+
+.btn-info p {
+  margin-right: 10px;
+  background-color: #CA6924;
+  color: #fff;
+}
+
+.card-center {
+  width: 100%;
+  height: 200vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-dash {
+  margin-top: 40px;
+  width: 15%;
+  height: 75vh;
+  background-color: #ca6924;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-dash input {
+  background-color: #ca6924;
+  color: #fff;
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+  transition: .6s;
+  border: none;
+}
+
+.btn-dash input:hover {
+  background-color: #b96225;
+}
+
+.top-btn-dash {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  background-color: #ca6924;
+}
+
+.container-graficos {
+  margin-top: 40px;
+  width: 82%;
+  margin-left: 20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 20px;
+}
+
+.card-top-produtos {
+  grid-column: 1 / 2;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-pizza-30dias {
+  grid-column: 2 / 3;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-linha-horas {
+  grid-column: 1 / 3;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-barras-mes, .card-pizza-pagamento {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  
+}
+
+th {
+  background-color: #CA6924;
+  color: white;
+  
+}
+.grafico-barras {
+  height: 300px;
+  overflow-x: auto;
+}

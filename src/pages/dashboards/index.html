@@ -36,19 +36,22 @@
         <div class="card-center">
             <div class="btn-dash">
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-vendas" value="Vendas">
+                    <input type="submit" class="dash-faturamento" value="Geral">
                 </div>
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-estoque" value="Estoque">
+                    <input type="submit" class="dash-vendas" value="Vendas" id="vendas">
                 </div>
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-cliente" value="Clientes">
+                    <input type="submit" class="dash-estoque" value="Estoque" id="estoque">
                 </div>
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-fornecedores" value="Fornecedores">
+                    <input type="submit" class="dash-cliente" value="Clientes" id="cliente">
                 </div>
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-faturamento" value="Faturamento">
+                    <input type="submit" class="dash-fornecedores" value="Fornecedores" id="fornecedores">
+                </div>
+                <div class="top-btn-dash">
+                    <input type="submit" class="dash-faturamento" value="Faturamento" id="faturamento">
                 </div>
             </div>
             <div class="dashboards">
@@ -60,7 +63,7 @@
                         <div class="block-info">
                             <p>Total de Vendas</p>
                             <p id="quantidade-vendas"></p>
-                            <p>Últimos 60 dias</p>
+                            <p>Últimos 30 dias</p>
                         </div>
                     </div>
 
@@ -69,9 +72,9 @@
                             <img src="../../../media/estatisticas.png" id="compras-png">
                         </div>
                         <div class="block-info">
-                            <p>Faturamento</p>
+                            <p>Vendas</p>
                             <p id="total-faturamento"></p>
-                            <p>Últimos 60 dias</p>
+                            <p>Últimos 30 dias</p>
                         </div>
                     </div>
 
@@ -82,13 +85,13 @@
                         <div class="block-info">
                             <p>Lucro</p>
                             <p id="total-vendas"></p>
-                            <p>Últimos 60 dias</p>
+                            <p>Últimos 30 dias</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="title-dash">
-                    <p>Entradas e Saídas de Produtos</p>
+                    <p>Últimas entradas e saídas de Produtos</p>
                 </div>
 
                 <div class="card-table">
@@ -96,8 +99,10 @@
                         <thead>
                             <tr>
                                 <th>Produto</th>
-                                <th>Tipo</th>
+                                <th>Movimentação</th>
+                                <th>Quant.</th>
                                 <th>Total</th>
+                                <th>Desconto</th>
                                 <th>Dia/Hora</th>
                             </tr>
                         </thead>
@@ -112,3 +117,8 @@
     <script src="renderer.js"></script>
 </body>
 </html>
+<script>
+  setInterval(function() {
+    location.reload();
+  }, 120000); // 120.000 ms = 2 minutos
+</script>

@@ -1,23 +1,58 @@
--- insert into users (usuario, senha, idnivel) values ('admin', 'admin', 3)
--- insert into niveis (nomenivel, nivel) values ('admin',3)
+CREATE DATABASE siscontrol;
+\connect siscontrol;
 
+-- Tabela de níveis
+CREATE TABLE niveis (
+    id SERIAL PRIMARY KEY,
+    nomenivel VARCHAR(50) NOT NULL,
+    nivel INTEGER NOT NULL
+);
 
+INSERT INTO niveis (nomenivel, nivel) VALUES
+('operador', 1),
+('assistente', 2),
+('administrador', 3);
+
+-- Tabela de usuários
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     usuario VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    idnivel INTEGER NOT NULL
+    idnivel INTEGER NOT NULL REFERENCES niveis(id)
 );
-INSERT INTO users (usuario, senha) VALUES
-('admin', 'admin', 3);
 
+-- Tabela de categorias
+CREATE TABLE categorias (
+    id SERIAL PRIMARY KEY,
+    categoria VARCHAR(255) NOT NULL
+);
 
+INSERT INTO categorias (categoria) VALUES
+('Frios e Laticínios'),
+('Alimentos Perecíveis'),
+('Alimentos não Perecíveis'),
+('Frutas e Legumes'),
+('Produtos de Limpeza'),
+('Higiene Pessoal'),
+('Pet Shop'),
+('Bebidas'),
+('Carnes e Peixes'),
+('Congelados'),
+('Produtos para Automóveis'),
+('Padaria'),
+('Saúde e Bem-estar'),
+('Enlatados e Conservas'),
+('Produtos de Festival e Datas Comemorativas'),
+('Diversos'),
+('Mercearia'),
+('Produtos para Bebês');
 
+-- Tabela de produtos
 CREATE TABLE produtos (
     id SERIAL PRIMARY KEY,
     codigo VARCHAR(255) NOT NULL,
     produto VARCHAR(255) NOT NULL,
-    idcat INTEGER NOT NULL,
+    idcat INTEGER NOT NULL REFERENCES categorias(id),
     preco NUMERIC NOT NULL,
     quantidade INTEGER NOT NULL,
     desconto VARCHAR(10),
@@ -29,61 +64,21 @@ CREATE TABLE produtos (
     dataalteracao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-
-CREATE TABLE niveis (
-    id SERIAL PRIMARY KEY,
-    nomenivel VARCHAR(50) NOT NULL,
-    nivel INTEGER NOT NULL
-);
-INSERT INTO users (usuario, senha) VALUES
-('operador', 1),
-('assistente', 2),
-('administrador', 3),;
-
-
--- Criando a tabela categorias
-CREATE TABLE categorias (
-    id SERIAL PRIMARY KEY,
-    categoria VARCHAR(255) NOT NULL
-);
-
--- Inserindo dados na tabela categorias
-INSERT INTO categorias (id, categoria) VALUES
-(1, 'Frios e Laticínios'),
-(2, 'Alimentos Perecíveis'),
-(3, 'Alimentos não Perecíveis)
-(4, 'Frutas e Legumes')
-(5, 'Produtos de Limpeza'),
-(6, 'Higiene Pessoal'),
-(7, 'Pet Shop'),
-(8, 'Bebidas'),
-(9, 'Carnes e Peixes'),
-(10, 'Congelados'),
-(11, 'Produtos para Automóveis'),
-(12, 'Padaria'),
-(13, 'Saúde e Bem-estar'),
-(14, 'Enlatados e Conservas'),
-(15, 'Produtos de Festival e Datas Comemorativas'),
-(16, 'Diversos'),
-(17, 'Mercearia'),
-(18, 'Produtos para Bebês');
-
--- Criando a tabela caixa
+-- Tabela de caixa
 CREATE TABLE caixa (
     id BIGSERIAL PRIMARY KEY,
-    iduser INTEGER NOT NULL,
-    idProduto INTEGER NOT NULL,
+    iduser INTEGER NOT NULL REFERENCES users(id),
+    idProduto INTEGER NOT NULL REFERENCES produtos(id),
     quantidade INTEGER NOT NULL,
     codigo VARCHAR(255),
     produto VARCHAR(255),
     preco NUMERIC NOT NULL,
     desconto VARCHAR(10),
     precodesc NUMERIC,
-    total NUMERIC,
+    total NUMERIC
 );
 
-
--- Criando a tabela clientes
+-- Tabela de clientes
 CREATE TABLE clientes (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -101,7 +96,7 @@ CREATE TABLE clientes (
     email VARCHAR(255)
 );
 
-
+-- Tabela de fornecedores
 CREATE TABLE fornecedor (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -117,20 +112,35 @@ CREATE TABLE fornecedor (
     contrato VARCHAR(255)
 );
 
+-- Tabela de relatórios de venda
 CREATE TABLE relatoriovenda (
-    id BIGSERIAL PRIMARY KEY,             
-    id_usuario INTEGER NOT NULL,          
-    id_cliente INTEGER,                   
+    id BIGSERIAL PRIMARY KEY,
+    id_usuario INTEGER NOT NULL REFERENCES users(id),
+    id_cliente INTEGER REFERENCES clientes(id),
     data_venda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    total NUMERIC NOT NULL,                              
+    total NUMERIC NOT NULL,
     forma_pagamento VARCHAR(255)
 );
-
 CREATE TABLE lucrosvenda (
   id SERIAL PRIMARY KEY,
-  id_cliente INTEGER,
-  id_usuario INTEGER NOT NULL,
+  id_cliente INTEGER REFERENCES clientes(id),
+  id_usuario INTEGER NOT NULL REFERENCES users(id),
   data_venda TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   lucro NUMERIC(10, 2) NOT NULL,
-  id_produto INTEGER
+  id_produto INTEGER REFERENCES produtos(id),
+  status BOOLEAN NOT NULL,
+);
+
+CREATE TABLE movimentacoes_estoque (
+    id SERIAL PRIMARY KEY,
+    id_produto INTEGER NOT NULL REFERENCES produtos(id),
+    id_user INTEGER NOT NULL REFERENCES users(id),
+    id_cliente INTEGER,
+    fornecedor VARCHAR(255),
+    tipo_movimento BOOLEAN NOT NULL,
+    quantidade INTEGER NOT NULL CHECK (quantidade > 0),
+    preco_unitario NUMERIC(10, 2) NOT NULL,
+    valor_total NUMERIC(12, 2) GENERATED ALWAYS AS (quantidade * preco_unitario) STORED,
+    data_movimento TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status BOOLEAN NOT NULL,
 );

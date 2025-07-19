@@ -1,0 +1,7 @@
+dar uma revisada aqui: ipcMain.handle('delete-item-caixa', async (event, caixaId) => {
+
+especificamente no lucrovenda e ver se precisa ser igual ao movimetacoes_estoque
+
+
+
+TUDO VAI SE RESOLVER COM A COLUNA ID_CAIXA

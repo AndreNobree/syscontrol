@@ -40,64 +40,62 @@
                 <div class="form-superior">
                     <div class="">
                         <label>Código do produto:</label><br>
-                        <input type="text" id="codigo"><br>
+                        <input type="text" id="codigo" placeholder="Ex: 1012094891237"><br>
                     </div>
                     
-                    <div class="lateral">
-                        <label>Categoria:</label><br>
-                        <select name="filtro" id="filtro">
-                            <option value="">- Selecionar Categoria -</option>
-                        </select>
+                    <div>
+                        <label>Produto:</label><br>
+                        <input type="text" id="produto" placeholder="Ex: Refrigerante X 2L">
                     </div>
 
                     <div class="lateral">
-                        <label>Fornecedor:</label><br>
-                        <select name="filtro" id="fornecedor">
-                            <option value="">- Selecionar Categoria -</option>
-                        </select>
+                        <label>Quantidade: </label><br>
+                        <input type="number" id="quantidade" placeholder="Ex: 10"><br>
                     </div>
                     
                 </div>
                 
                 <div class="form-intermediario">
                     <div>
-                        <label>Produto:</label><br>
-                        <input type="text" id="produto" >
+                        <label>Categoria:</label><br>
+                        <select name="filtro" id="filtro">
+                            <option value="">- Selecionar Categoria -</option>
+                        </select>
                     </div>
 
-                    <div class="lateral">
-                        <label>Quantidade: </label><br>
-                        <input type="number" id="quantidade"><br>
+                    <div>
+                        <label>Fornecedor:</label><br>
+                        <select name="filtro" id="fornecedor">
+                            <option value="">- Selecionar Categoria -</option>
+                        </select>
                     </div>
+                    
                     <div class="lateral">
                         <label>Desconto:</label><br>
-                        <input type="text" id="desconto" >
+                        <input type="text" id="desconto" placeholder="Ex 10%">
                     </div>
+                    
                     <!-- <div class="lateral">
                         <label>Comissao:</label><br>
                         <input type="text" id="comissao" >
                     </div> -->
                 </div>
 
-                <div class="form-inferior">
+                <div class="form-intermediario">
                     <div class="">
                         <label>Preço de Venda:</label><br>
-                        <input type="text" id="preco-venda"><br>
+                        <input type="text" id="preco-venda" placeholder="Valor de venda para o cliente"><br>
                     </div>
-                    <div class="lateral">
+                    <div class="">
                         <label>Preço de Compra:</label><br>
-                        <input type="text" id="preco-compra"><br>
+                        <input type="text" id="preco-compra" placeholder="Valor de compra do fornecedor"><br>
                     </div>
-
                     <div class="lateral">
-                        <label>Preço a prazo:</label><br>
-                        <input type="text" id="preco-prazo"><br>
+                        <label>Status:</label><br>
+                        <select name="Status" id="status" disabled>
+                            <option value=""> > ATIVO < </option>
+                        </select>
                     </div>
-
-                    <!-- <div class="lateral">
-                        <label>Garantia:</label><br>
-                        <input type="text" id="garantia" placeholder="Dias de garantia">
-                    </div> -->
                     
                 </div>
 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboards de Vendas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="menu-lateral">
+    <ul>
+      <li><a href="../index.html">Dashboards</a></li>
+      <li><a href="../../pdv/index.html">PDV</a></li>
+      <li><a href="../../estoque/index.html">Estoque</a></li>
+      <li><a href="../../fornecedores/index.html">Clientes & Fornecedores</a></li>
+      <li><a href="../../relatorios/index.html">Relatórios de Vendas Diárias</a></li>
+      <li><a href="../../usuarios/index.html">Usuários</a></li>
+      <li><a href="#">Configurações</a></li>
+    </ul>
+  </div>
+
+  <div class="home">
+    <div class="menu-superior">
+      <div class="nome-sistema">
+        <img src="../../../../media/pngwing.com (2).png" id="menu-png">
+        <h4>Syscontrol</h4>
+      </div>
+      <div></div>
+      <div class="btn-info">
+        <p id="nome-user"></p>
+        <img src="../../../../media/pngwing.com (1).png" id="logout-png">
+      </div>
+    </div>
+
+    <div class="card-center">
+      <div class="btn-dash">
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-faturamento" value="Geral" id="geral">
+        </div>
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-vendas" value="Vendas" id="vendas">
+        </div>
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-estoque" value="Estoque" id="estoque">
+        </div>
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-cliente" value="Clientes" id="clientes">
+        </div>
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-fornecedores" value="Fornecedores" id="fornecedores">
+        </div>
+        <div class="top-btn-dash">
+          <input type="submit" class="dash-faturamento" value="Faturamento" id="faturamento">
+        </div>
+      </div>
+    
+
+      <div class="container-graficos">
+        <!-- Tabela Top Produtos -->
+        <div class="card-top-produtos">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Produto</th><th>Qtd</th></tr>
+            </thead>
+            <tbody id="tabela-produtos"></tbody>
+          </table>
+        </div>
+
+        <!-- Pizza Vendas/Lucro 30 dias -->
+        <div class="card-pizza-30dias">
+          <canvas id="grafico-pizza-vendas-lucro"></canvas>
+        </div>
+
+        <!-- Linha Vendas/Lucros por Hora -->
+        <div class="card-linha-horas">
+          <canvas id="grafico-linhas-horas"></canvas>
+        </div>
+
+        <!-- Barras Vendas/Lucros por Mês -->
+        <div class="card-barras-mes">
+          <canvas id="grafico-barras-mes"></canvas>
+        </div>
+
+        <!-- Pizza Formas de Pagamento -->
+        <div class="card-pizza-pagamento">
+          <canvas id="grafico-pizza-pagamento"></canvas>
+        </div>
+
+        <div class="card-linha-horas">
+          <canvas id="grafico-linhas-sete-dias"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
+
+<script>
+  setInterval(function() {
+    location.reload();
+  }, 120000); // 2 minutos
+</script>

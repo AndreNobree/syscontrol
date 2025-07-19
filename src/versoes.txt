@@ -1,5 +1,0 @@
-A IDEIA:
-quando finalizar uma compra, dar um insert na lucrosvenda com somando todos os
-registros do usuario e dando um delete nesses registros do usuario de forma que
-permaneça somente um registro por venda.
-

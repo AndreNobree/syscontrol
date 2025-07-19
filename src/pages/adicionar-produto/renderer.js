@@ -22,16 +22,32 @@ document.addEventListener('DOMContentLoaded', async () => {
       nomeUser.innerHTML = nomeUsuarioLogado;
     
       const categorias = await window.electron.getCategorias();
+      
 
-      const select = document.querySelector('select');
+      const select = document.getElementById('filtro');
       categorias.forEach(categoria => {
-      const option = document.createElement('option');
-      option.value = categoria.id;
-      option.textContent = categoria.categoria;
-      select.appendChild(option);
-    });
+        const option = document.createElement('option');
+        option.value = categoria.id;
+        option.textContent = categoria.categoria;
+        select.appendChild(option);
+      }); 
 
     } catch (err) {
+        console.error('Erro ao carregar os produtos:', err);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', async () => { 
+    try {
+      const fornecedores = await window.electron.getFornecedorCadastro()
+      const select = document.getElementById('fornecedor');
+        fornecedores.forEach(fornecedor => {
+          const option = document.createElement('option');
+          option.value = fornecedor.nome;
+          option.textContent = fornecedor.nome;
+          select.appendChild(option);
+      }); 
+} catch (err) {
         console.error('Erro ao carregar os produtos:', err);
     }
 });
@@ -43,7 +59,7 @@ document.getElementById('botao-adicionar').addEventListener('click', async () =>
   const quantidade = document.getElementById('quantidade').value;
   let desconto = document.getElementById('desconto').value;
   const idcat = document.getElementById('filtro').value;
-  const idfornecedor  = document.getElementById('fornecedor').value;
+  let idfornecedor  = document.getElementById('fornecedor').value;
   let precocompra = document.getElementById('preco-compra').value;
   let precoprazo = document.getElementById('preco-prazo').value;
   // let garantia = document.getElementById('garantia').value;

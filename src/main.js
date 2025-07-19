@@ -10,8 +10,8 @@ let nomeUsuarioLogado = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1050,
-    height: 700,
+    width: 1366,
+    height: 768,
     minWidth: 1050,
     minHeight: 600,
     webPreferences: {
@@ -260,8 +260,14 @@ ipcMain.handle('get-produtos-select', async () => {
 
 ipcMain.handle('insert-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor }) => {
   try {
+    let entra = true
+    let zero = 0
+
     const data = new Date();
     const res = await dbClient.query('INSERT INTO produtos (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, dataalteracao) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, data]);
+    const result = await dbClient.query('SELECT * FROM produtos WHERE codigo = $1', [codigo]);
+    const idProduct = result.rows[0].id
+    const res2 = await dbClient.query('INSERT INTO movimentacoes_estoque (id_produto, id_user, id_cliente, tipo_movimento, quantidade, preco_unitario, data_movimento, fornecedor, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [idProduct, usuarioLogado, zero, entra, quantidade, preco, data, idfornecedor, entra]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -295,8 +301,9 @@ ipcMain.handle('getProductById', async (event, productId) => {
 ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco, quantidade, desconto, idRegistro }) => {
   try {
     const data = new Date();
-    console.log(codigo)
+    const certo = true
     const res = await dbClient.query('UPDATE produtos SET codigo = $1, idcat = $2, preco = $3, quantidade = $4, desconto = $5, produto = $6, dataalteracao = $7 WHERE id = $8', [codigo, idcat, preco, quantidade, desconto, produto, data, idRegistro]);
+    const res2 = await dbClient.query('UPDATE movimentacoes_estoque SET quantidade = $1, preco_unitario = $2, data_movimento = $3 WHERE id_produto = $4', [quantidade, preco, data, idRegistro]);
 
     if (res.rows.length > 0) {
       return { success: true };  
@@ -309,7 +316,7 @@ ipcMain.handle('update-produtos', async (event, { codigo, produto, idcat, preco,
   }
 });
 
-
+//insert caixa
 ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidade}) => {
   try {
     const data = new Date();
@@ -329,6 +336,7 @@ ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidad
       let desconto = result.rows[0].desconto
       let quantidadeProd = result.rows[0].quantidade
       let precocompra = result.rows[0].precocompra
+      let idfornecedor = result.rows[0].idfornecedor
       let total = 0
       let precodesc = 0
       quantidadeProd = quantidadeProd - quantidade
@@ -348,13 +356,48 @@ ipcMain.handle('get-update-products-for-caixa', async (event, {codigo, quantidad
       else{
        total = preco * quantidade 
       }
-      console.log(lucro)
+      const falso = false
       
       const insetCaixa = await dbClient.query('INSERT INTO caixa (iduser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [idUser, idproduto, quantidade, codigo, produto, preco, desconto, precodesc, total]);
-      const insetLucro = await dbClient.query('INSERT INTO lucrosvenda (id_usuario, data_venda, lucro, id_produto) VALUES ($1, $2, $3, $4)', [idUser, data, lucro, idproduto]);
       const updateProd = await dbClient.query('UPDATE produtos SET quantidade = $1 WHERE codigo = $2', [quantidadeProd, codigo]);
+
+      const movimentoExistente = await dbClient.query(
+        `SELECT * FROM movimentacoes_estoque 
+        WHERE id_produto = $1 
+          AND status = $2 and id_user = $3`,
+        [idproduto, falso, usuarioLogado]
+      );
+
+      // Só faz o INSERT se não encontrou movimentação existente
+      if (movimentoExistente.rows.length === 0) {
+        let zero = 0
+        await dbClient.query(
+          `INSERT INTO movimentacoes_estoque 
+            (id_produto, id_user, id_cliente, tipo_movimento, quantidade, preco_unitario, data_movimento, fornecedor, status)  
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [idproduto, usuarioLogado, zero, falso, quantidade, preco, data, idfornecedor, falso]
+        );
+        await dbClient.query('INSERT INTO lucrosvenda (id_usuario, data_venda, lucro, id_produto, status) VALUES ($1, $2, $3, $4, $5)', [idUser, data, lucro, idproduto, falso]);
+      } else {
+         // Já existe um registro -> fazemos o UPDATE (atualizar quantidade e total)
+        const idMovEstoque = movimentoExistente.rows[0].id
+        let quantidadeAtual = movimentoExistente.rows[0].quantidade;
+        let novaQuantidade = parseFloat(quantidadeAtual) + parseFloat(quantidade);
+
+
+        await dbClient.query(
+          'UPDATE movimentacoes_estoque SET quantidade = $1 WHERE id = $2',
+          [novaQuantidade, idMovEstoque]
+        );
+
+        const selectLucros = await dbClient.query('SELECT lucro FROM lucrosvenda WHERE id_produto = $1', [idproduto]);
+        let selectAtualizado = selectLucros.rows[0].lucro;
+        totalLucro = parseFloat(lucro) + parseFloat(selectAtualizado)
+
+        await dbClient.query('UPDATE lucrosvenda SET lucro = $1 WHERE id_produto = $2', [parseFloat(totalLucro), idproduto]);
+      }
       
-      if (insetCaixa.rows.length > 0 && updateProd.rows.length > 0 && insetLucro.rows.length > 0) {
+      if (insetCaixa.rows.length > 0 && updateProd.rows.length > 0 && insetLucro.rows.length > 0 && updateMovEstoque.rows.length > 0) {
         return { success: true };  
       } else {
         return { success: false, message: 'Falha ao fazer insert-update da acao de inserir dados no caixa e atualização de quantidade' };  
@@ -383,7 +426,7 @@ ipcMain.handle('get-caixa', async () => {
   }
 });
 
-ipcMain.handle('delete-caixa', async (event, caixaId) => {
+ipcMain.handle('delete-item-caixa', async (event, caixaId) => {
   
   try {
     const query2 = await dbClient.query('SELECT * FROM caixa WHERE id = $1', [caixaId]);
@@ -393,10 +436,27 @@ ipcMain.handle('delete-caixa', async (event, caixaId) => {
     let quantidade2 = query4.rows[0].quantidade
     let quantidade = quantidade2 + quantidade1
     const positivo = Math.abs(quantidade);
-
+  
     const query = await dbClient.query('DELETE FROM caixa WHERE id = $1', [caixaId]);
     const query3 = await dbClient.query('UPDATE produtos SET quantidade = $1 WHERE id = $2', [positivo,idproduto]);
-    const query5 = await dbClient.query('DELETE FROM lucrosvenda WHERE id_produto = $1', [idproduto]);
+    const query6 = await dbClient.query('SELECT * FROM caixa WHERE idproduto = $1', [idproduto]);
+
+    if (query6.rows.length === 0) {
+      const falso = false
+      await dbClient.query('DELETE FROM movimentacoes_estoque WHERE id_produto = $1 and status = $2 and id_user = $3', [idproduto, falso, usuarioLogado]);
+      await dbClient.query('DELETE FROM lucrosvenda WHERE id_produto = $1', [idproduto]);
+    }else{
+      //const data = new Date(); // isso pegará a data atual
+      const falso = false
+      let quantidade3 = query2.rows[0].quantidade
+      let lucro = query2.rows[0].precodesc - query4.rows[0].precocompra
+      let totalTudo = query2.rows[0].quantidade * lucro
+      // let lucro = query2.rows[0].precodesc - query4.rows[0].precocompra
+      await dbClient.query('UPDATE movimentacoes_estoque SET quantidade = $1 WHERE id_produto = $2 and status = $3 and id_user = $4', [quantidade3,idproduto, falso, usuarioLogado]);
+      await dbClient.query('UPDATE lucrosvenda set lucro = $1 WHERE id_produto = $2', [totalTudo, idproduto]);
+      
+    }
+
     if (query2.rowCount > 0) {
       return { success: true };  // Retorna sucesso
     } else {
@@ -414,7 +474,7 @@ ipcMain.handle('insert-relatorio-delete-caixa', async (event, {pagamento, total}
   try {
       const data = new Date(); // isso pegará a data atual
       const zero = 0;
-      
+      const certo = true
 
       const insetRelarorio = await dbClient.query('INSERT INTO relatoriovenda (id_usuario, data_venda, total, forma_pagamento) VALUES ($1, $2, $3, $4)', [usuarioLogado, data, total, pagamento]);
       
@@ -422,9 +482,9 @@ ipcMain.handle('insert-relatorio-delete-caixa', async (event, {pagamento, total}
 
       const selectLucrosVenda = await dbClient.query('SELECT sum(lucro) AS lucro FROM lucrosvenda WHERE id_usuario = $1 AND id_produto <> $2', [usuarioLogado, zero]);
       let lucroTotal = selectLucrosVenda.rows[0].lucro
-      const insetLucro = await dbClient.query('INSERT INTO lucrosvenda (id_usuario, data_venda, lucro, id_produto) VALUES ($1, $2, $3, $4)', [usuarioLogado, data, lucroTotal, zero]);
+      const insetLucro = await dbClient.query('INSERT INTO lucrosvenda (id_usuario, data_venda, lucro, id_produto, status) VALUES ($1, $2, $3, $4, $5)', [usuarioLogado, data, lucroTotal, zero, certo]);
       const deleteLucrosVenda = await dbClient.query('DELETE FROM lucrosvenda WHERE id_usuario = $1 AND id_produto <> $2', [usuarioLogado, zero]);
-      
+      const updateMovEstoque = await dbClient.query('UPDATE movimentacoes_estoque SET status = $1 WHERE id_user = $2', [certo, usuarioLogado]);
       if (insetRelarorio.rows.length > 0) {
         return { success: true };  
       } else {
@@ -530,6 +590,23 @@ ipcMain.handle('get-fornecedor', async () => {
     throw new Error('Erro ao buscar produto');
   }
 });
+ipcMain.handle('get-fornecedor-cadastro', async () => {
+  try {
+    // Substitua esta consulta com a consulta real ao seu banco de dados
+    const result = await dbClient.query('SELECT contrato, nome, cnpj, telefone, cep, email, ativo FROM fornecedor');
+
+    if (result.rows.length === 0) {
+      // Se não houver nenhum item, retornará um array vazio
+      return [];
+    }
+
+    // Retorna todas as linhas da tabela 'caixa'
+    return result.rows;
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
 
 ipcMain.handle('insert-cliente', async (event, { nome, celular, cpf_cnpj, email, cep, endereco, complemento }) => {
   try {
@@ -548,7 +625,7 @@ ipcMain.handle('insert-cliente', async (event, { nome, celular, cpf_cnpj, email,
 ipcMain.handle('insert-fornecedor', async (event, { nome, telefone, cnpj, email, cep, endereco }) => {
   try {
     const res = await dbClient.query('INSERT INTO fornecedor (nome, telefone, cnpj, email, cep, endereco) VALUES ($1, $2, $3, $4, $5, $6)', [nome, telefone, cnpj, email, cep, endereco]);
-
+    
     if (res.rows.length > 0) {
       return { success: true };  
     } else {
@@ -560,13 +637,15 @@ ipcMain.handle('insert-fornecedor', async (event, { nome, telefone, cnpj, email,
   }
 });
 
+
+//DASHBOARDS
 //faturamento 60 dias
 ipcMain.handle('get-faturmaento', async () => {
   try {
     const result = await dbClient.query(`
       SELECT COALESCE(SUM(total), 0) AS total_vendas
       FROM relatoriovenda
-      WHERE data_venda >= NOW() - INTERVAL '60 days';
+      WHERE data_venda >= NOW() - INTERVAL '30 days';
     `);
 
     return result.rows[0].total_vendas;
@@ -581,7 +660,7 @@ ipcMain.handle('get-quantidade-vendas', async () => {
     const result = await dbClient.query(`
       SELECT COUNT(*) AS quantidade
       FROM relatoriovenda
-      WHERE data_venda >= NOW() - INTERVAL '60 days';
+      WHERE data_venda >= NOW() - INTERVAL '30 days';
     `);
 
     // PostgreSQL pode retornar COUNT como string, então convertemos para número
@@ -597,7 +676,8 @@ ipcMain.handle('get-lucro', async () => {
     const result = await dbClient.query(`
       SELECT sum(lucro) AS lucro
       FROM lucrosvenda
-      WHERE data_venda >= NOW() - INTERVAL '60 days';
+      WHERE status = true
+      AND data_venda >= NOW() - INTERVAL '30 days';
     `);
 
     return result.rows[0].lucro;
@@ -607,8 +687,290 @@ ipcMain.handle('get-lucro', async () => {
   }
 });
 
-app.whenReady().then(createWindow);
+ipcMain.handle('get-mov-estoque', async () => {
+  try {
+    const result = await dbClient.query(`
+      SELECT a.tipo_movimento as tipo, a.quantidade as quantidade, a.valor_total as total, a.data_movimento as datam, a.fornecedor as fornecedor, b.produto as produto, c.usuario as usuario, b.desconto as desconto 
+      FROM movimentacoes_estoque a 
+      LEFT JOIN produtos b ON a.id_produto = b.id
+      LEFT JOIN users c ON a.id_user = c.id
+      WHERE a.status = true
+      ORDER BY datam desc
+      LIMIT 20
+    `);
 
+    if (result.rows.length === 0) {
+      console.log("Nenhuma movimentação  encontrada na tabela.");
+    }
+    return result.rows; 
+  } catch (err) {
+    console.error('Erro ao buscar produto:', err);
+    throw new Error('Erro ao buscar produto');
+  }
+});
+
+
+//DASHBOARDS - vendas
+// Gráfico 1 – 5   Produtos mais vendidos
+ipcMain.handle('get-produtos-mais-vendidos', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    JOIN produtos p ON p.id = m.id_produto
+    WHERE m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido DESC
+    LIMIT 6;
+  `);
+  return result.rows;
+});
+
+// Gráfico 2 – Vendas realizadas nos ultimos 30 dias
+ipcMain.handle('get-vendas-por-trinta', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      SUM(l.lucro) AS lucro,
+      SUM(r.total) AS faturamento
+    FROM relatoriovenda r
+    LEFT JOIN lucrosvenda l 
+      ON l.data_venda = r.data_venda
+    WHERE 
+      r.data_venda >= NOW() - INTERVAL '30 days'
+      AND l.status = true;
+    `);
+    return result.rows;
+  });
+
+  // Gráfico 3 – Vendas realizadas hoje
+ipcMain.handle('get-vendas-por-dia', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      TO_CHAR(DATE_TRUNC('hour', r.data_venda), 'HH24:00') AS hora,
+      SUM(r.total) AS faturamento,
+      SUM(l.lucro) AS lucro
+    FROM relatoriovenda r
+    LEFT JOIN lucrosvenda l 
+      ON l.data_venda = r.data_venda
+    WHERE 
+      DATE(r.data_venda) = CURRENT_DATE
+      AND l.status = true
+    GROUP BY hora
+    ORDER BY hora;
+
+  `);
+  return result.rows;
+});
+
+
+
+// grafico 4 - lucros/venda por 12 meses
+ipcMain.handle('get-vendas-por-doze-meses', async () => {
+  const result = await dbClient.query(`
+    SELECT
+      TO_CHAR(r.data_venda, 'MM/YYYY') AS mes_ano,
+      SUM(r.total) AS faturamento,
+      SUM(l.lucro) AS lucro
+    FROM relatoriovenda r
+    LEFT JOIN lucrosvenda l ON l.data_venda = r.data_venda
+    WHERE
+      r.data_venda >= (CURRENT_DATE - INTERVAL '12 months')
+      AND l.status = true
+    GROUP BY TO_CHAR(r.data_venda, 'MM/YYYY')
+    ORDER BY TO_CHAR(r.data_venda, 'MM/YYYY');
+    `);
+    return result.rows;
+});
+  
+
+    // Gráfico 5 – Vendas por forma de pagamento
+ipcMain.handle('get-vendas-por-pagamento', async () => {
+  const result = await dbClient.query(`
+      SELECT 
+        forma_pagamento,
+        count(forma_pagamento) as total_pagamento
+      FROM relatoriovenda
+      WHERE data_venda >= NOW() - INTERVAL '30 days'
+      GROUP BY forma_pagamento
+  `);
+  return result.rows;
+});
+
+ipcMain.handle('get-vendas-por-sete-dias', async () => {
+  const result = await dbClient.query(`
+    SELECT
+      TO_CHAR(r.data_venda, 'DD/MM/YYYY') AS dia,
+      SUM(r.total) AS faturamento,
+      SUM(l.lucro) AS lucro
+    FROM relatoriovenda r
+    LEFT JOIN lucrosvenda l ON l.data_venda = r.data_venda
+    WHERE
+      r.data_venda >= (CURRENT_DATE - INTERVAL '7 days')
+      AND l.status = true
+    GROUP BY TO_CHAR(r.data_venda, 'DD/MM/YYYY')
+    ORDER BY TO_DATE(TO_CHAR(r.data_venda, 'DD/MM/YYYY'), 'DD/MM/YYYY');
+  `);
+  return result.rows;
+});
+
+
+//DASHBOARDS - estoque
+//total em estoque (grafico 1)
+ipcMain.handle('get-total-estoque', async () => {
+  try {
+    const result = await dbClient.query(`
+      SELECT 
+        SUM(quantidade * precocompra) AS valor_total_estoque
+      FROM produtos;
+    `);
+
+    return result.rows[0].valor_total_estoque;
+  } catch (err) {
+    console.error('Erro ao buscar total em estoque:', err);
+    throw new Error('Erro ao buscar total em estoque');
+  }
+});
+
+//quantos produtos foram vendidos (grafico 2)
+ipcMain.handle('get-quantidade-saida', async () => {
+  try {
+    const result = await dbClient.query(`
+      SELECT 
+        SUM(quantidade) AS total_saida
+      FROM movimentacoes_estoque
+      WHERE tipo_movimento = false;
+    `);
+    return result.rows[0].total_saida;
+
+  } catch (err) {
+    console.error('Erro ao buscar total em estoque:', err);
+    throw new Error('Erro ao buscar total em estoque');
+  }
+});
+
+//quantidade e valor do produto vendido por um ano (grafico 3)
+ipcMain.handle('get-quantidade-valor-produto-ano', async (event, { produto }) => {
+  const result = await dbClient.query(`
+    SELECT
+      TO_CHAR(m.data_movimento, 'MM/YYYY') AS mes_ano,
+      SUM(m.valor_total) AS valor_total_estoque,
+      SUM(m.quantidade) as quantidade
+    FROM movimentacoes_estoque m
+      LEFT JOIN produtos p ON p.id = m.id_produto
+    WHERE
+          m.data_movimento >= (CURRENT_DATE - INTERVAL '12 months')
+          AND p.id = $1
+    GROUP BY TO_CHAR(m.data_movimento, 'MM/YYYY')
+    ORDER BY TO_CHAR(m.data_movimento, 'MM/YYYY');  
+  `, [produto]);
+  return result.rows;
+});
+
+//10 produtos com mais entradas e saidas por 30 dias (grafico 4)
+ipcMain.handle('get-mais-dez-trinta-dias', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.data_movimento >= NOW() - INTERVAL '30 DAYS'
+    AND m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido DESC
+    LIMIT 10
+  `);
+  return result.rows;
+});
+
+//10 produtos com mais entradas e saidas por 1 ano (grafico 5)
+ipcMain.handle('get-mais-dez-um-ano', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.data_movimento >= NOW() - INTERVAL '12 months'
+    AND m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido DESC
+    LIMIT 10
+  `);
+  return result.rows;
+});
+
+//10 produtos com menos entradas e saidas por 30 dias (grafico 6)
+ipcMain.handle('get-menos-dez-trinta-dias', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.data_movimento >= NOW() - INTERVAL '30 DAYS'
+    AND m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido ASC
+    LIMIT 10
+  `);
+  return result.rows;
+});
+
+//10 produtos com menos entradas e saidas por 1 ano (grafico 7)
+ipcMain.handle('get-menos-dez-um-ano', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.data_movimento >= NOW() - INTERVAL '12 months'
+    AND m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido ASC
+    LIMIT 10
+  `);
+  return result.rows;
+});
+
+//produto mais vendido (grafico 8)
+ipcMain.handle('get-mais-saida', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido DESC
+    LIMIT 1
+  `);
+  return result.rows;
+});
+
+//produto MENOS vendido (grafico 9)
+ipcMain.handle('get-menos-saida', async () => {
+  const result = await dbClient.query(`
+    SELECT 
+      p.produto,
+      SUM(m.quantidade) AS total_vendido
+    FROM movimentacoes_estoque m
+    LEFT JOIN produtos p ON m.id_produto = p.id
+    WHERE m.tipo_movimento = false
+    GROUP BY p.produto
+    ORDER BY total_vendido ASC
+    LIMIT 1
+  `);
+  return result.rows;
+});
+
+
+
+app.whenReady().then(createWindow);
+    
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();

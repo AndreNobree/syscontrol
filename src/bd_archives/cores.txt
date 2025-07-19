@@ -1,0 +1,16 @@
+Esquema de Cores: Azul Escuro + Verde + Branco
+Cor de fundo (geral para o sistema):
+
+Cinza claro: #F1F1F1 — Uma cor neutra que cria um ambiente limpo e moderno, ideal para o fundo principal do sistema.
+Cor primária (usada em elementos principais como cabeçalhos, barras de navegação, botões de ação):
+
+Azul escuro: #1A3A5B — Transmite confiança e é uma excelente cor para destacar a identidade do sistema, como o cabeçalho e os botões importantes.
+Cor secundária (usada em botões secundários, ícones, detalhes e links):
+
+Verde: #28A745 — Uma cor associada a resultados positivos, ideal para ações de aprovação e elementos que indicam sucesso, como "estoque suficiente".
+Cor de destaque (para alertas, mensagens de erro ou situações que requerem atenção):
+
+Laranja: #FF7F32 — Usada com moderação, pode ser aplicada em alertas, como um estoque baixo, ou outros elementos críticos.
+Texto e ícones:
+
+Preto ou cinza escuro: #212121 — Ótima opção para textos gerais, garantindo boa legibilidade.

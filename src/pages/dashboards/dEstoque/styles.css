@@ -1,20 +1,20 @@
 @font-face {
     font-family: 'Poppins';
-    src: url('../../../fonts/Poppins-Regular.ttf') format('truetype');
+    src: url('../../../../fonts/Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
   
 @font-face {
     font-family: 'Poppins';
-    src: url('../../../fonts/Poppins-Bold.ttf') format('truetype');
+    src: url('../../../../fonts/Poppins-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
   
 @font-face {
     font-family: 'Poppins';
-    src: url('../../../fonts/Poppins-Light.ttf') format('truetype');
+    src: url('../../../../fonts/Poppins-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
@@ -22,6 +22,7 @@
     margin: 0;
     padding: 0;
     background-color: #F3F6F8;
+    font-family: 'Poppins', sans-serif;
 }
 /* Menu Lateral */
 .menu-lateral {
@@ -181,81 +182,120 @@
     border-radius: 20px;
     color: #fff;
 }
-#compras-png{
-    background-color: #CA6924;
-    width: 60px;
-    height: 60px;
+
+
+
+.container-graficos {
+  margin-top: 40px;
+  width: 82%;
+  margin-left: 20px;
+  gap: 20px;
 }
-.block-png{
-    margin-top: 20px;
-    margin-left:30px;
-    background-color: #CA6924;
+.conteudo-top{
+    background-color: white;
     display: flex;
-    justify-content: start;
+    gap: 20px;
+    justify-content: center;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
-.block-info{
-    margin-top: 10px;
-    margin-left: 30px;
+
+.valor-total-estoque {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 42%;
+    height: 150px;
     background-color: #CA6924;
-    
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
 }
-.block-info p{
-    margin-top: 8px;
+.title1 h2{
     background-color: #CA6924;
-    font-family: 'Poppins', sans-serif;
+    color: white;
 }
-#total-vendas, #total-faturamento, #quantidade-vendas{
-    font-weight: bold;
-    font-size: 24px;
-}
-.title-dash{
-    margin-top: 10px;
-    font-size: 22px;
-    font-family: 'Poppins', sans-serif;
-}
-.card-table{
-    margin-top: 10px;
-    width: 100%;
-    height: 350px;
-    background-color: #fff;
-    border-radius: 0 0 20px 20px;
-    border: rgb(212, 212, 212) solid 1px;
-    overflow-x: auto;   /* ou scroll, se quiser sempre mostrar a barra */
-  white-space: nowrap; /* impede quebra de linha */
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Poppins', sans-serif;
-    background-color: #b96225;
-    text-align: center;
-}
-th, td {
-    text-align: center;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-thead{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: #f3f3f3;
-    font-weight: bold;
+.title2 h2{
+    background-color:white;
     color: #CA6924;
 }
-.entrou{
-    font-size: 15px;
-    color: #0ed145;
-    font-weight: bold;
-    border: 2px solid #0ed145;
-    border-radius: 20px;
+.title3 h2{
+    background-color: white;
+    color: #9E1515;
+}
+
+.quantidades-vendidos {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 42%;
+    height: 150px;
+    background-color: white;
+    border: 1px solid #CA6924;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-.saiu{
-    font-size: 15px;
-    color: #9e1515;
-    font-weight: bold;
-    border: 2px solid #9e1515;
-    border-radius: 20px;
+
+.filtros-produtos{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content:end;
+    border-radius: 6px;
+}
+.card-input select{
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #CA6924;
+    border-radius: 6px;
+    outline: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.vinte-mais-transicoes{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 42%;
+    height: 250px;
+    background-color: white;
+    border: 1px solid #CA6924;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+.card-select-produto{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 250px;
+    background-color: white;
+    border: 1px solid #CA6924;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.valores1{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ca6924;
+    color: white;
+    font-size: 25px;
+}
+.valores2{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: #ca6924;
+    font-size: 25px;
 }

@@ -1,20 +1,20 @@
 @font-face {
     font-family: 'Poppins';
-    src: url('./fonts/Poppins-Regular.ttf') format('truetype');
+    src: url('../../../fonts/Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
   
 @font-face {
     font-family: 'Poppins';
-    src: url('./fonts/Poppins-Bold.ttf') format('truetype');
+    src: url('../../../fonts/Poppins-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
   
 @font-face {
     font-family: 'Poppins';
-    src: url('./fonts/Poppins-Light.ttf') format('truetype');
+    src: url('../../../fonts/Poppins-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
@@ -131,13 +131,22 @@
     margin-top: 30px;
     font-family: 'Poppins', sans-serif;
 }
-form, .menu-intermediario{
+form{
     margin-left: 30px;
 }
-.form-superior, .form-inferior, .form-intermediario{
+.form-superior, .form-intermediario{
     display: flex;
+    justify-content: space-between;
 }
-.form-intermediario, .form-inferior{
+
+.form-superior input, .form-intermediario input{
+    width: 350px;
+}
+.form-intermediario select{
+    width: 378px;
+    text-align: center;
+}
+.form-intermediario{
     margin-top: 20px;
 }
 input, select{
@@ -149,6 +158,9 @@ input, select{
     color: #222;
     font-family: 'Poppins', sans-serif;
 }
+.lateral{
+    margin-right: 40px;
+}
 #btn-voltar{
     cursor: pointer;
     color: #fff;
@@ -157,9 +169,7 @@ input, select{
     background-color: #CA6924;
     transition: .6s;
     font-weight: bold;
-}
-.lateral{
-    margin-left: 20px;
+    
 }
 #botao-adicionar{
     cursor: pointer;
@@ -177,10 +187,4 @@ input, select{
 #btn-voltar:hover{
     border: 1px solid #e6823b;
     background-color: #e6823b;
-}
-#produto{
-    width: 300px;
-}
-#desconto, #quantidade, #comissao{
-    width: 100px;
 }

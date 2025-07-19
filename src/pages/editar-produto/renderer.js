@@ -19,13 +19,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     
       const categorias = await window.electron.getCategorias();
 
-      const select = document.querySelector('select');
+      const select = document.getElementById('filtro');
       categorias.forEach(categoria => {
-      const option = document.createElement('option');
-      option.value = categoria.id;
-      option.textContent = categoria.categoria;
-      select.appendChild(option);
-    });
+        const option = document.createElement('option');
+        option.value = categoria.id;
+        option.textContent = categoria.categoria;
+        select.appendChild(option);
+      });
+    //   const select2 = document.getElementById('fornecedor');
+    //   fornecedores.forEach(fornecedor => {
+    //   const option = document.createElement('option');
+    //   option.value = fornecedor.id;
+    //   option.textContent = fornecedor.nome;
+    //   select2.appendChild(option);
+    // });
 
     } catch (err) {
         console.error('Erro ao carregar os produtos:', err);
