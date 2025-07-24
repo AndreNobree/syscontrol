@@ -26,7 +26,7 @@
 /* Menu Lateral */
 .menu-lateral {
     width: 250px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     color: #fff;
     height: 100vh;
     position: fixed;  /* Usando fixed para sobrepor ao conteúdo */
@@ -57,20 +57,20 @@
     padding-bottom: 10px;
     text-align: left;
     font-family: 'Poppins', sans-serif;
-    background-color: #CA6924;
+    background-color: #0057FF;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     color: #fff;
     display: block;
-    background-color: #CA6924;
+    background-color: #0057FF;
     padding: 8px;
     
 }
 
 .menu-lateral ul li a:hover {
-    background-color: #b96225;
+    background-color: #0057FF;
 }
 
 /* Estilização do conteúdo principal */
@@ -84,7 +84,7 @@
 .menu-superior {
     width: 100%;
     height: 55px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -98,12 +98,12 @@
 
 .nome-sistema{
     color: #fff;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
 }
 .nome-sistema h4{
     margin-left: 10px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     font-family: 'Poppins', sans-serif;
 }
 .nome-sistema img{
@@ -113,18 +113,18 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     margin-right: 15px;
 }
 .btn-info{
     margin-right: 20px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
 }
 .btn-info p{
     font-family: 'Poppins', sans-serif;
     margin-right: 10px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     color: #fff;
 }
 .menu-intermediario{
@@ -170,7 +170,7 @@ thead{
     z-index: 1;
     background-color: #f3f3f3;
     font-weight: bold;
-    color: #CA6924;
+    color: #0057FF;
 }
 .edit{
     cursor: pointer;
@@ -189,8 +189,8 @@ thead{
 #cad-user{
     color: #fff;
     outline: none;
-    border: 1px solid #ca6924;
-    background-color: #CA6924;
+    border: 1px solid #0057FF;
+    background-color: #0057FF;
     transition: .6s;
     font-weight: bold;
 }

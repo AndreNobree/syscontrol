@@ -45,7 +45,7 @@
                     <input type="submit" class="dash-estoque" value="Estoque" id="estoque">
                 </div>
                 <div class="top-btn-dash">
-                    <input type="submit" class="dash-cliente" value="Clientes">
+                    <input type="submit" class="dash-cliente" value="Clientes" id="clientes">
                 </div>
                 <div class="top-btn-dash">
                     <input type="submit" class="dash-fornecedores" value="Fornecedores">
@@ -70,20 +70,22 @@
                     </div>
                 </div>
 
-                <div class="filtros-produtos">
-                    <div class="card-input">
-                        <select name="" id="">
-                            <option value="iu">option1</option>
-                            <option value="iu">option2</option>
-                            <option value="iu">option3</option>
-                        </select>
+                <div class="inputs-intermediario">
+                    <div class="nome-produto">
+                        <label for="">Pesquisar Produto:</label><br>
+                        <input type="text" id="searchInput" placeholder="Pesquise aqui...">
+                        <div id="dropdownList" class="dropdown-content">
+                                
+                        </div>
                     </div>
                 </div>
 
                 <div class="conteudo-top">
                     <div class="card-select-produto">
                         <div class="title2"><h2>Movimentações</h2></div>
-                        <div class="" id="total-estoque"></div>
+                        <div class="" id="total-estoque">
+                            <canvas id="grafico-linhas-movimentacoes"></canvas>
+                        </div>
                     </div>
                 </div>
 

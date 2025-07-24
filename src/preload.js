@@ -47,9 +47,3 @@ contextBridge.exposeInMainWorld('electron', {
   getProdutoMaisSaida: () => ipcRenderer.invoke('get-mais-saida'),
   getProdutoMenosSaida: () => ipcRenderer.invoke('get-menos-saida'),
 });
-
-
-// insert into produtos 
-//   (codigo, produto, idcat, preco, quantidade, desconto, precoprazo, precocompra, idfornecedor, garantia, comissao) 
-// values
-//   (3232, 'coca-cola 1,5l', 8, 8.99, 98, '', 8.99, 4.99, '1', 0, 0)

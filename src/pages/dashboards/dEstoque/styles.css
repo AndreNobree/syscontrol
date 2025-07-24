@@ -27,7 +27,7 @@
 /* Menu Lateral */
 .menu-lateral {
     width: 250px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     color: #fff;
     height: 100vh;
     position: fixed;  /* Usando fixed para sobrepor ao conteúdo */
@@ -58,20 +58,20 @@
     padding-bottom: 10px;
     text-align: left;
     font-family: 'Poppins', sans-serif;
-    background-color: #CA6924;
+    background-color: #0057FF;
 }
 
 .menu-lateral ul li a {
     text-decoration: none;
     color: #fff;
     display: block;
-    background-color: #CA6924;
+    background-color: #0057FF;
     padding: 8px;
     
 }
 
 .menu-lateral ul li a:hover {
-    background-color: #b96225;
+    background-color: #0057FF;
 }
 
 /* Estilização do conteúdo principal */
@@ -85,7 +85,7 @@
 .menu-superior {
     width: 100%;
     height: 55px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,12 +99,12 @@
 
 .nome-sistema{
     color: #fff;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
 }
 .nome-sistema h4{
     margin-left: 10px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     font-family: 'Poppins', sans-serif;
 }
 .nome-sistema img{
@@ -114,18 +114,18 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     margin-right: 15px;
 }
 .btn-info{
     margin-right: 20px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     display: flex;
 }
 .btn-info p{
     font-family: 'Poppins', sans-serif;
     margin-right: 10px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     color: #fff;
 }
 
@@ -141,11 +141,11 @@
     margin-top: 40px;
     width: 15%;
     height: 100%;
-    background-color: #ca6924;
+    background-color: #0057FF;
     border-radius: 10px;
 }
 .btn-dash input{
-    background-color: #ca6924;
+    background-color: #0057FF;
     color: #fff;
     font-family: 'Poppins', sans-serif;
     width:100%;
@@ -155,12 +155,12 @@
     transition: .6s;
 }
 .btn-dash input:hover{
-    background-color: #b96225;
+    background-color: #0057FF;
 }
 .top-btn-dash{
     margin-top: 20px;
     margin-bottom: 40px;
-    background-color: #ca6924;
+    background-color: #0057FF;
 }
 .top-btn-dash input{
     border: none;
@@ -178,7 +178,7 @@
 .top-cards-dash{
     width: 33%;
     height: 200px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     border-radius: 20px;
     color: #fff;
 }
@@ -199,6 +199,7 @@
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    z-index: 1;
 }
 
 .valor-total-estoque {
@@ -206,7 +207,7 @@
     margin-bottom: 20px;
     width: 42%;
     height: 150px;
-    background-color: #CA6924;
+    background-color: #0057FF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -214,12 +215,12 @@
   
 }
 .title1 h2{
-    background-color: #CA6924;
+    background-color: #0057FF;
     color: white;
 }
 .title2 h2{
     background-color:white;
-    color: #CA6924;
+    color: #0057FF;
 }
 .title3 h2{
     background-color: white;
@@ -232,7 +233,7 @@
     width: 42%;
     height: 150px;
     background-color: white;
-    border: 1px solid #CA6924;
+    border: 1px solid #0057FF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -249,7 +250,7 @@
 .card-input select{
     width: 300px;
     padding: 10px;
-    border: 1px solid #CA6924;
+    border: 1px solid #0057FF;
     border-radius: 6px;
     outline: none;
     margin-bottom: 20px;
@@ -261,7 +262,7 @@
     width: 42%;
     height: 250px;
     background-color: white;
-    border: 1px solid #CA6924;
+    border: 1px solid #0057FF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -273,7 +274,7 @@
     width: 90%;
     height: 250px;
     background-color: white;
-    border: 1px solid #CA6924;
+    border: 1px solid #0057FF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -285,7 +286,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ca6924;
+    background-color: #0057FF;
     color: white;
     font-size: 25px;
 }
@@ -296,6 +297,73 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    color: #ca6924;
+    color: #0057FF;
     font-size: 25px;
+}
+#searchInput {
+    width: 385px;
+    padding: 10px;
+    border: #0057FF 1px solid;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    z-index: 2;
+}
+
+.nome-produto {
+    position: relative;  /* Essencial para o dropdown se posicionar em relação a ele */
+}
+.nome-produto label{
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+#searchInput {
+    width: 385px;
+    padding: 10px;
+    border: #0057FF 1px solid;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    z-index: 1;
+}
+
+.nome-produto {
+    position: relative;  /* Essencial para o dropdown se posicionar em relação a ele */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;  /* Para se posicionar em relação ao .nome-produto */
+    top: 100%;  /* Posicionar logo abaixo do input */
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    z-index: 1;  /* Garantir que o dropdown fique acima de outros elementos */
+}
+.dropdown-content a {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover {
+    background-color: #0057FF;
+    color: #fff;
+}
+
+.show {
+    display: block;
+}
+.inputs-intermediario{
+    margin-bottom: 30px;
 }
